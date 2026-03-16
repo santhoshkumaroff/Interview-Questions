@@ -1,0 +1,2966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Intern Interview Prep Guide – Rudhra Info Solution</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161e;
+    --surface2: #1a1e2a;
+    --border: #252a38;
+    --accent: #6ee7b7;
+    --accent2: #38bdf8;
+    --accent3: #f472b6;
+    --accent4: #fbbf24;
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --code-bg: #0a0c10;
+    --pill-py: #1d4ed820;
+    --pill-sql: #7c3aed20;
+    --pill-ml: #065f4620;
+    --pill-gen: #831843;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .hero {
+    background: linear-gradient(135deg, #0d1117 0%, #0d1f2d 50%, #0d0f14 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 40px 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, #6ee7b710 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 50%, #38bdf810 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    color: #fff;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero p { color: var(--text-muted); font-size: 16px; max-width: 580px; margin: 0 auto 28px; }
+  .meta-pills {
+    display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 10px;
+  }
+  .meta-pill {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 20px; padding: 5px 16px; font-size: 13px; color: var(--text-muted);
+  }
+  .meta-pill strong { color: var(--accent); }
+
+  /* ── NAV ── */
+  .toc {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 40px;
+    display: flex; flex-wrap: wrap; gap: 6px;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .toc a {
+    color: var(--text-muted); text-decoration: none;
+    font-size: 12px; font-family: 'JetBrains Mono', monospace;
+    padding: 4px 12px; border-radius: 4px;
+    border: 1px solid transparent;
+    transition: all .2s;
+    white-space: nowrap;
+  }
+  .toc a:hover { color: var(--accent); border-color: var(--accent); background: #6ee7b710; }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  /* ── SECTION HEADER ── */
+  .section-wrap { padding: 56px 0 20px; }
+  .section-header {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-num {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 48px;
+    color: var(--border); line-height: 1; min-width: 60px;
+  }
+  .section-info h2 {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.8rem;
+    color: #fff; margin-bottom: 4px;
+  }
+  .section-info p { color: var(--text-muted); font-size: 14px; }
+  .section-tag {
+    display: inline-block; font-size: 11px; font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase; letter-spacing: 1px;
+    padding: 3px 10px; border-radius: 3px; margin-right: 6px;
+  }
+  .tag-py   { background: #1d4ed820; color: #60a5fa; border: 1px solid #1d4ed840; }
+  .tag-sql  { background: #7c3aed20; color: #a78bfa; border: 1px solid #7c3aed40; }
+  .tag-ml   { background: #065f4620; color: #34d399; border: 1px solid #065f4640; }
+  .tag-gen  { background: #83184330; color: #f472b6; border: 1px solid #83184350; }
+  .tag-hr   { background: #92400e20; color: #fbbf24; border: 1px solid #92400e40; }
+  .tag-proj { background: #1e3a8a20; color: #93c5fd; border: 1px solid #1e3a8a40; }
+
+  /* ── TOPIC LABEL ── */
+  .topic-label {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem;
+    color: var(--accent2); margin: 36px 0 16px;
+    padding-left: 14px; border-left: 3px solid var(--accent2);
+  }
+
+  /* ── QUESTION CARD ── */
+  .q-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(480px, 1fr)); gap: 18px; margin-bottom: 10px; }
+  .q-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+    transition: border-color .25s, transform .2s;
+  }
+  .q-card:hover { border-color: #38bdf840; transform: translateY(-2px); }
+  .q-card-header {
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .q-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--text-muted); min-width: 32px; padding-top: 2px;
+  }
+  .q-title { font-weight: 600; font-size: 15px; color: #fff; line-height: 1.4; }
+  .q-body { padding: 16px 20px; }
+  .q-section { margin-bottom: 12px; }
+  .q-section:last-child { margin-bottom: 0; }
+  .q-label {
+    font-size: 10px; font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase; letter-spacing: 1px;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+  .q-section p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+  /* definition highlight */
+  .definition {
+    background: linear-gradient(90deg, #6ee7b710, #38bdf708);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    padding: 10px 14px;
+    font-size: 13.5px; color: var(--text);
+    margin-bottom: 0;
+  }
+
+  /* example box */
+  .example-box {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 6px; padding: 10px 14px;
+    font-size: 13px; color: var(--text-muted);
+  }
+
+  /* followup */
+  .followup { display: flex; flex-wrap: wrap; gap: 6px; }
+  .followup span {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 4px; padding: 3px 10px; font-size: 12px; color: var(--text-muted);
+  }
+
+  /* ── CODE BLOCKS ── */
+  .code-wrap {
+    background: var(--code-bg); border: 1px solid #1e2430;
+    border-radius: 8px; overflow: hidden; margin: 10px 0;
+  }
+  .code-header {
+    background: #0f1117; padding: 8px 16px;
+    display: flex; align-items: center; gap: 8px;
+    border-bottom: 1px solid #1e2430;
+  }
+  .code-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .code-lang {
+    margin-left: auto; font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--text-muted);
+  }
+  pre {
+    padding: 16px 20px; overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; line-height: 1.7; color: #c9d1d9;
+  }
+  .kw { color: #ff79c6; }
+  .fn { color: #50fa7b; }
+  .str { color: #f1fa8c; }
+  .cm { color: #6272a4; font-style: italic; }
+  .num { color: #bd93f9; }
+  .var { color: #8be9fd; }
+
+  /* ── TABLE ── */
+  .tbl-wrap { overflow-x: auto; margin: 10px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  th {
+    background: var(--surface2); color: var(--accent);
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 1px;
+    padding: 10px 14px; text-align: left; border: 1px solid var(--border);
+  }
+  td { padding: 10px 14px; border: 1px solid var(--border); color: var(--text-muted); vertical-align: top; }
+  tr:nth-child(even) td { background: #13161e80; }
+
+  /* ── MOCK INTERVIEW ── */
+  .mock-thread { display: flex; flex-direction: column; gap: 14px; }
+  .mock-msg {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 14px 18px; border-radius: 10px;
+  }
+  .mock-iv { background: #1a1e2a; border: 1px solid #252a38; }
+  .mock-ca { background: #0d2015; border: 1px solid #1a4a2e; flex-direction: row-reverse; text-align: right; }
+  .mock-avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; flex-shrink: 0;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .av-iv { background: #1d4ed8; color: #fff; }
+  .av-ca { background: #065f46; color: #34d399; }
+  .mock-content { flex: 1; }
+  .mock-label { font-size: 10px; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 4px; }
+  .mock-text { font-size: 14px; color: var(--text); line-height: 1.6; }
+
+  /* ── HR CARD ── */
+  .hr-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden; margin-bottom: 14px;
+  }
+  .hr-q {
+    background: #1a1e2a; padding: 14px 20px;
+    font-weight: 600; font-size: 15px; color: #fff;
+    border-bottom: 1px solid var(--border);
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .hr-num { color: var(--accent4); font-family: 'JetBrains Mono', monospace; font-size: 12px; min-width: 30px; }
+  .hr-a { padding: 14px 20px; }
+  .hr-tip {
+    display: inline-block; font-size: 11px; font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase; letter-spacing: 1px;
+    background: #92400e20; color: #fbbf24; border: 1px solid #92400e40;
+    border-radius: 4px; padding: 2px 8px; margin-bottom: 8px;
+  }
+  .hr-a p { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+
+  /* ── FULL-WIDTH CARD ── */
+  .full-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden; margin-bottom: 18px;
+  }
+  .full-card-header {
+    padding: 14px 20px; background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    font-weight: 600; font-size: 15px; color: #fff;
+    display: flex; gap: 12px; align-items: center;
+  }
+  .full-card-body { padding: 16px 20px; }
+  .full-card-body p { font-size: 14px; color: var(--text-muted); line-height: 1.65; margin-bottom: 10px; }
+  .full-card-body p:last-child { margin-bottom: 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    margin-top: 80px;
+    background: var(--surface); border-top: 1px solid var(--border);
+    padding: 30px 40px; text-align: center; color: var(--text-muted); font-size: 13px;
+  }
+  footer strong { color: var(--accent); }
+
+  /* ── PROGRESS BAR DECORATION ── */
+  .progress-decor {
+    height: 3px; width: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3), var(--accent4));
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 768px) {
+    .toc { padding: 10px 16px; }
+    .hero { padding: 40px 20px 36px; }
+    .container { padding: 0 16px; }
+    .q-grid { grid-template-columns: 1fr; }
+    .section-num { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-decor"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">AI Internship Interview Preparation Guide</div>
+  <h1>Crack the <span>AI Intern</span> Interview<br>at Rudhra Info Solution</h1>
+  <p>150+ questions with full explanations, code solutions, real-world examples, and sample answers — everything a fresher needs.</p>
+  <div class="meta-pills">
+    <div class="meta-pill">🏢 <strong>Company:</strong> Rudhra Info Solution</div>
+    <div class="meta-pill">📍 <strong>Location:</strong> Bangalore (Offline)</div>
+    <div class="meta-pill">💼 <strong>Role:</strong> AI Intern – Development</div>
+    <div class="meta-pill">🎓 <strong>Profile:</strong> BE/BTech 2024/2025</div>
+    <div class="meta-pill">💰 <strong>Stipend:</strong> ₹10k–15k / Month</div>
+    <div class="meta-pill">⏱ <strong>Duration:</strong> 3–6 Months</div>
+  </div>
+</div>
+
+<!-- TOC -->
+<nav class="toc">
+  <a href="#written">§1 Written Round</a>
+  <a href="#technical">§2 Technical Round</a>
+  <a href="#coding">§3 Coding Questions</a>
+  <a href="#sql">§4 SQL Questions</a>
+  <a href="#genai">§5 Generative AI</a>
+  <a href="#projects">§6 Project Discussion</a>
+  <a href="#hr">§7 HR Round</a>
+  <a href="#mock">§8 Mock Interview</a>
+</nav>
+
+
+<!-- ══════════════════════════════════════════════
+  SECTION 1 – WRITTEN ROUND
+══════════════════════════════════════════════ -->
+<div id="written" class="section-wrap container">
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <div class="section-info">
+      <h2>Written Round</h2>
+      <p>40+ objective and short-answer questions across Python, SQL, ML, and GenAI basics</p>
+    </div>
+  </div>
+
+  <!-- PYTHON BASICS -->
+  <div class="topic-label">🐍 Python Basics</div>
+  <div class="q-grid">
+
+    <!-- Q1 -->
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q01</span>
+        <span class="q-title">What is the difference between a list, tuple, and set in Python?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">List = ordered + mutable. Tuple = ordered + immutable. Set = unordered + unique elements only.</div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Comparison</div>
+          <div class="tbl-wrap">
+            <table>
+              <tr><th>Feature</th><th>List</th><th>Tuple</th><th>Set</th></tr>
+              <tr><td>Ordered</td><td>✅</td><td>✅</td><td>❌</td></tr>
+              <tr><td>Mutable</td><td>✅</td><td>❌</td><td>✅ (elements unique)</td></tr>
+              <tr><td>Duplicates</td><td>✅</td><td>✅</td><td>❌</td></tr>
+              <tr><td>Indexing</td><td>✅</td><td>✅</td><td>❌</td></tr>
+              <tr><td>Use-case</td><td>General storage</td><td>Fixed config data</td><td>Unique collections</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Industry Example</div>
+          <p class="example-box">A list stores a user's chat history (changes over time). A tuple stores GPS coordinates (fixed). A set stores unique product tags.</p>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Follow-up Questions</div>
+          <div class="followup">
+            <span>Why is tuple faster than list?</span>
+            <span>When would you prefer a set over a list?</span>
+            <span>Can a tuple be used as a dictionary key?</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q02</span>
+        <span class="q-title">What is the difference between mutable and immutable objects?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">Mutable objects can be changed after creation (list, dict, set). Immutable objects cannot be changed (int, float, str, tuple).</div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Real-World Example</div>
+          <p class="example-box">A string "Hello" is immutable — doing s[0]='J' throws an error. A list [1,2,3] is mutable — you can do lst[0]=9 freely.</p>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Follow-up Questions</div>
+          <div class="followup">
+            <span>Why are strings immutable?</span>
+            <span>What happens in memory when you change a string?</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q03</span>
+        <span class="q-title">What is a decorator in Python?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">A decorator is a function that wraps another function to extend or modify its behavior without changing the original code.</div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Simple Example</div>
+          <div class="code-wrap">
+            <div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+            <pre><span class="kw">def</span> <span class="fn">log_call</span>(func):
+    <span class="kw">def</span> <span class="fn">wrapper</span>(*args):
+        <span class="fn">print</span>(<span class="str">f"Calling {func.__name__}"</span>)
+        <span class="kw">return</span> func(*args)
+    <span class="kw">return</span> wrapper
+
+<span class="kw">@</span><span class="fn">log_call</span>
+<span class="kw">def</span> <span class="fn">greet</span>(name):
+    <span class="fn">print</span>(<span class="str">f"Hello {name}"</span>)
+
+<span class="fn">greet</span>(<span class="str">"Alice"</span>)
+<span class="cm"># Output: Calling greet → Hello Alice</span></pre>
+          </div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Industry Example</div>
+          <p class="example-box">Flask uses @app.route() as a decorator to register URL endpoints.</p>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Follow-up Questions</div>
+          <div class="followup">
+            <span>What is functools.wraps?</span>
+            <span>Can a decorator take arguments?</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q04</span>
+        <span class="q-title">What is the difference between deep copy and shallow copy?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">Shallow copy copies the outer object but keeps references to inner objects. Deep copy copies everything recursively — a fully independent clone.</div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Simple Example</div>
+          <div class="code-wrap">
+            <div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+            <pre><span class="kw">import</span> copy
+a = [[<span class="num">1</span>, <span class="num">2</span>], [<span class="num">3</span>, <span class="num">4</span>]]
+b = copy.copy(a)       <span class="cm"># Shallow</span>
+c = copy.deepcopy(a)   <span class="cm"># Deep</span>
+a[<span class="num">0</span>][<span class="num">0</span>] = <span class="num">99</span>
+<span class="fn">print</span>(b[<span class="num">0</span>][<span class="num">0</span>])  <span class="cm"># 99 (shared inner!)</span>
+<span class="fn">print</span>(c[<span class="num">0</span>][<span class="num">0</span>])  <span class="cm"># 1  (independent)</span></pre>
+          </div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Follow-up Questions</div>
+          <div class="followup">
+            <span>When should you use deepcopy?</span>
+            <span>What is the copy() method on a list?</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q05</span>
+        <span class="q-title">What is a lambda function in Python?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">A lambda is an anonymous (nameless) function written in a single line. Syntax: lambda args: expression.</div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Example</div>
+          <div class="code-wrap">
+            <div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+            <pre>square = <span class="kw">lambda</span> x: x ** <span class="num">2</span>
+<span class="fn">print</span>(square(<span class="num">5</span>))  <span class="cm"># 25</span>
+
+<span class="cm"># Sorting with lambda</span>
+data = [(<span class="str">"Alice"</span>, <span class="num">25</span>), (<span class="str">"Bob"</span>, <span class="num">20</span>)]
+data.sort(key=<span class="kw">lambda</span> x: x[<span class="num">1</span>])
+<span class="fn">print</span>(data)  <span class="cm"># [("Bob", 20), ("Alice", 25)]</span></pre>
+          </div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Follow-up Questions</div>
+          <div class="followup">
+            <span>Lambda vs regular function?</span>
+            <span>Can lambda have multiple statements?</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q06</span>
+        <span class="q-title">What is *args and **kwargs in Python?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">*args allows a function to accept any number of positional arguments (as a tuple). **kwargs allows any number of keyword arguments (as a dict).</div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Example</div>
+          <div class="code-wrap">
+            <div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+            <pre><span class="kw">def</span> <span class="fn">demo</span>(*args, **kwargs):
+    <span class="fn">print</span>(args)    <span class="cm"># (1, 2, 3)</span>
+    <span class="fn">print</span>(kwargs)  <span class="cm"># {'name': 'AI'}</span>
+
+<span class="fn">demo</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, name=<span class="str">"AI"</span>)</pre>
+          </div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Follow-up Questions</div>
+          <div class="followup">
+            <span>Order of *args and **kwargs?</span>
+            <span>How are they used in ML libraries?</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q07</span>
+        <span class="q-title">What are list comprehensions in Python?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">A compact syntax to create a new list from an iterable in one line: [expression for item in iterable if condition].</div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Example</div>
+          <div class="code-wrap">
+            <div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+            <pre><span class="cm"># Squares of even numbers 0-9</span>
+result = [x**<span class="num">2</span> <span class="kw">for</span> x <span class="kw">in</span> <span class="fn">range</span>(<span class="num">10</span>) <span class="kw">if</span> x % <span class="num">2</span> == <span class="num">0</span>]
+<span class="cm"># [0, 4, 16, 36, 64]</span></pre>
+          </div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Industry Example</div>
+          <p class="example-box">Preprocessing text in NLP: cleaned = [word.lower() for word in tokens if word.isalpha()]</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q08</span>
+        <span class="q-title">What is the difference between == and is in Python?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">== checks if two objects have the same value. is checks if they are the exact same object in memory (same identity).</div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Example</div>
+          <div class="code-wrap">
+            <div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+            <pre>a = [<span class="num">1</span>, <span class="num">2</span>]; b = [<span class="num">1</span>, <span class="num">2</span>]
+<span class="fn">print</span>(a == b)  <span class="cm"># True  (same values)</span>
+<span class="fn">print</span>(a <span class="kw">is</span> b)  <span class="cm"># False (different objects)</span></pre>
+          </div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Follow-up Questions</div>
+          <div class="followup">
+            <span>When does is return True?</span>
+            <span>What is Python's id() function?</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q09</span>
+        <span class="q-title">What is a generator in Python?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">A generator is a function that uses yield instead of return. It produces values lazily (one at a time) without storing all in memory.</div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Example</div>
+          <div class="code-wrap">
+            <div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+            <pre><span class="kw">def</span> <span class="fn">counter</span>(n):
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n):
+        <span class="kw">yield</span> i
+
+<span class="kw">for</span> val <span class="kw">in</span> <span class="fn">counter</span>(<span class="num">3</span>):
+    <span class="fn">print</span>(val)  <span class="cm"># 0, 1, 2</span></pre>
+          </div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Industry Example</div>
+          <p class="example-box">In ML, batch generators stream training data from disk without loading everything into RAM — critical for large datasets.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q10</span>
+        <span class="q-title">What are Python's OOP concepts? (Class, Object, Inheritance)</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">Class = blueprint. Object = instance of a class. Inheritance = a child class reuses properties/methods of a parent class.</div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Simple Example</div>
+          <div class="code-wrap">
+            <div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+            <pre><span class="kw">class</span> <span class="fn">Animal</span>:
+    <span class="kw">def</span> <span class="fn">speak</span>(self): <span class="kw">return</span> <span class="str">"..."</span>
+
+<span class="kw">class</span> <span class="fn">Dog</span>(Animal):
+    <span class="kw">def</span> <span class="fn">speak</span>(self): <span class="kw">return</span> <span class="str">"Woof"</span>
+
+d = Dog()
+<span class="fn">print</span>(d.speak())  <span class="cm"># Woof</span></pre>
+          </div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Follow-up Questions</div>
+          <div class="followup">
+            <span>What is polymorphism?</span>
+            <span>What is super()?</span>
+            <span>Encapsulation vs Abstraction?</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /q-grid Python -->
+
+  <!-- SQL BASICS -->
+  <div class="topic-label">🗃️ SQL Basics</div>
+  <div class="q-grid">
+
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q11</span>
+        <span class="q-title">What is the difference between WHERE and HAVING?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">WHERE filters individual rows before grouping. HAVING filters groups after GROUP BY aggregation.</div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Comparison Table</div>
+          <div class="tbl-wrap">
+            <table>
+              <tr><th>Clause</th><th>When Used</th><th>With Aggregates?</th></tr>
+              <tr><td>WHERE</td><td>Before GROUP BY</td><td>❌ No</td></tr>
+              <tr><td>HAVING</td><td>After GROUP BY</td><td>✅ Yes</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Follow-up Questions</div>
+          <div class="followup">
+            <span>Can WHERE use aggregate functions?</span>
+            <span>Can HAVING be used without GROUP BY?</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q12</span>
+        <span class="q-title">What is the difference between INNER, LEFT, and RIGHT JOIN?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">INNER JOIN returns only matching rows in both tables. LEFT JOIN returns all rows from the left + matches from right (NULLs if no match). RIGHT JOIN is the opposite of LEFT JOIN.</div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Visual</div>
+          <div class="tbl-wrap">
+            <table>
+              <tr><th>JOIN Type</th><th>Returns</th></tr>
+              <tr><td>INNER JOIN</td><td>Only matched rows</td></tr>
+              <tr><td>LEFT JOIN</td><td>All left + matched right (NULL if no match)</td></tr>
+              <tr><td>RIGHT JOIN</td><td>All right + matched left (NULL if no match)</td></tr>
+              <tr><td>FULL OUTER JOIN</td><td>All rows from both sides</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Follow-up Questions</div>
+          <div class="followup">
+            <span>What is a CROSS JOIN?</span>
+            <span>What is SELF JOIN?</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q13</span>
+        <span class="q-title">What is Normalization in databases?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">Normalization organizes a database to reduce redundancy and improve data integrity through a series of Normal Forms (1NF, 2NF, 3NF).</div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Normal Forms</div>
+          <div class="tbl-wrap">
+            <table>
+              <tr><th>Form</th><th>Rule</th></tr>
+              <tr><td>1NF</td><td>Atomic values — no repeating groups</td></tr>
+              <tr><td>2NF</td><td>No partial dependency on primary key</td></tr>
+              <tr><td>3NF</td><td>No transitive dependency</td></tr>
+              <tr><td>BCNF</td><td>Every determinant is a candidate key</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Industry Example</div>
+          <p class="example-box">Storing customer orders: normalize so customer info isn't duplicated in every order row — store it in a separate Customers table.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q14</span>
+        <span class="q-title">What is the difference between DELETE, TRUNCATE, and DROP?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">DELETE removes specific rows (can use WHERE), is logged, rollback possible. TRUNCATE removes all rows fast, no logging. DROP removes the entire table from the database permanently.</div>
+        </div>
+        <div class="q-section">
+          <div class="tbl-wrap">
+            <table>
+              <tr><th>Command</th><th>Removes</th><th>Rollback?</th><th>WHERE?</th></tr>
+              <tr><td>DELETE</td><td>Specific rows</td><td>✅</td><td>✅</td></tr>
+              <tr><td>TRUNCATE</td><td>All rows</td><td>❌ (usually)</td><td>❌</td></tr>
+              <tr><td>DROP</td><td>Entire table</td><td>❌</td><td>❌</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Follow-up Questions</div>
+          <div class="followup">
+            <span>TRUNCATE vs DELETE performance?</span>
+            <span>Can you rollback a DROP statement?</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q15</span>
+        <span class="q-title">What is Indexing in SQL and why is it important?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">An index is a data structure that speeds up data retrieval on a table column, like a book's index — you jump directly to the right page rather than reading every page.</div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Industry Example</div>
+          <p class="example-box">A table with 10 million user records: without an index on email, every search scans all rows. With an index, it's near-instant.</p>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Follow-up Questions</div>
+          <div class="followup">
+            <span>Clustered vs Non-clustered index?</span>
+            <span>Downsides of too many indexes?</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /q-grid SQL -->
+
+  <!-- ML BASICS -->
+  <div class="topic-label">🤖 Machine Learning Basics</div>
+  <div class="q-grid">
+
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q16</span>
+        <span class="q-title">What is the difference between Supervised and Unsupervised Learning?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">Supervised: model learns from labeled data (input + output pairs). Unsupervised: model finds hidden patterns in unlabeled data.</div>
+        </div>
+        <div class="q-section">
+          <div class="tbl-wrap">
+            <table>
+              <tr><th>Aspect</th><th>Supervised</th><th>Unsupervised</th></tr>
+              <tr><td>Labels</td><td>Required</td><td>Not required</td></tr>
+              <tr><td>Goal</td><td>Predict output</td><td>Discover structure</td></tr>
+              <tr><td>Example</td><td>Spam detection</td><td>Customer segmentation</td></tr>
+              <tr><td>Algorithms</td><td>Linear Reg, SVM, RF</td><td>K-Means, DBSCAN, PCA</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Follow-up Questions</div>
+          <div class="followup">
+            <span>What is Semi-supervised learning?</span>
+            <span>What is Reinforcement Learning?</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q17</span>
+        <span class="q-title">What is Overfitting and Underfitting?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">Overfitting: model memorizes training data — poor on new data (high variance). Underfitting: model is too simple — poor on training and test data (high bias).</div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Industry Example</div>
+          <p class="example-box">A fraud detection model that memorizes past frauds but fails on new fraud patterns = overfitted. A model that says everything is "not fraud" = underfitted.</p>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Solutions</div>
+          <p class="example-box">Overfitting → Regularization (L1/L2), Dropout, more data, pruning. Underfitting → More features, complex model, reduce regularization.</p>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Follow-up Questions</div>
+          <div class="followup">
+            <span>What is the Bias-Variance tradeoff?</span>
+            <span>What is cross-validation?</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q18</span>
+        <span class="q-title">What is the Bias-Variance Tradeoff?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">Bias = error from oversimplified model. Variance = error from model being too sensitive to training data. You must balance them — reducing one usually increases the other.</div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Formula</div>
+          <p class="example-box">Total Error = Bias² + Variance + Irreducible Noise</p>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Follow-up Questions</div>
+          <div class="followup">
+            <span>What model has high bias?</span>
+            <span>What model has high variance?</span>
+            <span>How does ensemble reduce variance?</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q19</span>
+        <span class="q-title">What is Gradient Descent?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">Gradient Descent is an optimization algorithm that iteratively adjusts model parameters in the direction opposite to the gradient of the loss function to minimize error.</div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Analogy</div>
+          <p class="example-box">Imagine you're blindfolded on a hilly terrain and need to find the lowest point. Each step you take goes in the direction that feels most downhill.</p>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Types</div>
+          <div class="tbl-wrap">
+            <table>
+              <tr><th>Type</th><th>Uses per Update</th><th>Speed</th></tr>
+              <tr><td>Batch GD</td><td>All data</td><td>Slow</td></tr>
+              <tr><td>Stochastic GD</td><td>1 sample</td><td>Fast, noisy</td></tr>
+              <tr><td>Mini-batch GD</td><td>Small batch</td><td>Balanced ✅</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Follow-up Questions</div>
+          <div class="followup">
+            <span>What is the learning rate?</span>
+            <span>What happens if learning rate is too large?</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q20</span>
+        <span class="q-title">What is a Confusion Matrix?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">A confusion matrix is a table that summarizes a classification model's performance by showing True Positives, False Positives, True Negatives, and False Negatives.</div>
+        </div>
+        <div class="q-section">
+          <div class="tbl-wrap">
+            <table>
+              <tr><th></th><th>Predicted YES</th><th>Predicted NO</th></tr>
+              <tr><td><strong>Actual YES</strong></td><td>TP (True Positive)</td><td>FN (False Negative)</td></tr>
+              <tr><td><strong>Actual NO</strong></td><td>FP (False Positive)</td><td>TN (True Negative)</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Metrics Derived</div>
+          <p class="example-box">Accuracy = (TP+TN)/(Total) | Precision = TP/(TP+FP) | Recall = TP/(TP+FN) | F1 = 2×(Precision×Recall)/(Precision+Recall)</p>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Industry Example</div>
+          <p class="example-box">In medical diagnosis (cancer detection), a False Negative is more dangerous than a False Positive, so we optimize for high Recall.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q21</span>
+        <span class="q-title">What is the difference between Classification and Regression?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">Classification predicts a discrete class label (e.g., spam/not-spam). Regression predicts a continuous numerical value (e.g., house price).</div>
+        </div>
+        <div class="q-section">
+          <div class="tbl-wrap">
+            <table>
+              <tr><th>Aspect</th><th>Classification</th><th>Regression</th></tr>
+              <tr><td>Output</td><td>Discrete label</td><td>Continuous number</td></tr>
+              <tr><td>Example</td><td>Email = Spam/Ham</td><td>Predict salary</td></tr>
+              <tr><td>Metric</td><td>Accuracy, F1</td><td>RMSE, MAE, R²</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /q-grid ML -->
+
+  <!-- GENAI BASICS -->
+  <div class="topic-label">✨ Generative AI Basics</div>
+  <div class="q-grid">
+
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q22</span>
+        <span class="q-title">What is Generative AI?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">Generative AI is a type of AI that creates new content — text, images, audio, code — by learning patterns from training data.</div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Examples</div>
+          <p class="example-box">ChatGPT generates human-like text. DALL·E creates images from text prompts. GitHub Copilot generates code. Suno AI generates music.</p>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Follow-up Questions</div>
+          <div class="followup">
+            <span>GenAI vs Traditional ML?</span>
+            <span>What are foundation models?</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q23</span>
+        <span class="q-title">What is a Large Language Model (LLM)?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">An LLM is a deep learning model trained on massive amounts of text data, capable of understanding and generating human language. It uses the Transformer architecture.</div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Examples</div>
+          <p class="example-box">GPT-4 (OpenAI), Claude (Anthropic), Gemini (Google), Llama (Meta), Mistral.</p>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Follow-up Questions</div>
+          <div class="followup">
+            <span>What is a Transformer?</span>
+            <span>What is the context window?</span>
+            <span>What is tokenization?</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q24</span>
+        <span class="q-title">What is Prompt Engineering?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">Prompt Engineering is the art and science of crafting input text (prompts) to guide an LLM to produce the desired output effectively.</div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Techniques</div>
+          <p class="example-box">Zero-shot (no example), Few-shot (give examples), Chain-of-thought (ask the model to reason step by step), Role prompting ("Act as a senior developer…").</p>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Follow-up Questions</div>
+          <div class="followup">
+            <span>What is few-shot vs zero-shot?</span>
+            <span>What is temperature in LLMs?</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q25</span>
+        <span class="q-title">What is RAG (Retrieval-Augmented Generation)?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">RAG is a technique that enhances LLM responses by first retrieving relevant documents from a knowledge base and then feeding them as context to the LLM before generating the answer.</div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Flow</div>
+          <p class="example-box">User Query → Embed query → Search vector DB → Retrieve top-k docs → Inject into prompt → LLM generates answer grounded in docs.</p>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Industry Example</div>
+          <p class="example-box">A company builds a customer support chatbot that retrieves from their private knowledge base — so the LLM gives accurate, up-to-date answers instead of hallucinating.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q26</span>
+        <span class="q-title">What is the difference between Generative AI and Traditional ML?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">Traditional ML learns to classify, regress, or cluster existing data. Generative AI learns the data distribution to create entirely new data samples.</div>
+        </div>
+        <div class="q-section">
+          <div class="tbl-wrap">
+            <table>
+              <tr><th>Aspect</th><th>Traditional ML</th><th>Generative AI</th></tr>
+              <tr><td>Goal</td><td>Predict/classify</td><td>Create new content</td></tr>
+              <tr><td>Output</td><td>Label/number</td><td>Text/image/audio</td></tr>
+              <tr><td>Examples</td><td>Random Forest, SVM</td><td>GPT, DALL·E, Stable Diffusion</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q27</span>
+        <span class="q-title">How would you build a simple chatbot using Python?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">High-level Architecture</div>
+          <p class="example-box">User Input → Preprocessing → Intent Detection / LLM API call → Response Generation → Output to User</p>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Simple Example (OpenAI API)</div>
+          <div class="code-wrap">
+            <div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+            <pre><span class="kw">from</span> openai <span class="kw">import</span> OpenAI
+client = OpenAI(api_key=<span class="str">"YOUR_KEY"</span>)
+
+<span class="kw">def</span> <span class="fn">chat</span>(user_msg):
+    res = client.chat.completions.create(
+        model=<span class="str">"gpt-3.5-turbo"</span>,
+        messages=[{<span class="str">"role"</span>:<span class="str">"user"</span>, <span class="str">"content"</span>:user_msg}]
+    )
+    <span class="kw">return</span> res.choices[<span class="num">0</span>].message.content
+
+<span class="fn">print</span>(<span class="fn">chat</span>(<span class="str">"What is AI?"</span>))</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q28</span>
+        <span class="q-title">What are Python data types?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">Python's core types: int, float, complex, str, bool, list, tuple, set, dict, NoneType.</div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Follow-up Questions</div>
+          <div class="followup">
+            <span>What is dynamic typing?</span>
+            <span>What is type() function?</span>
+            <span>What is type casting?</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q29</span>
+        <span class="q-title">What is an ML Pipeline?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Definition</div>
+          <div class="definition">An ML pipeline is a series of automated steps: Data Collection → Preprocessing → Feature Engineering → Model Training → Evaluation → Deployment → Monitoring.</div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Industry Example</div>
+          <p class="example-box">Sklearn's Pipeline object chains steps: StandardScaler → PCA → LogisticRegression into a single fit/predict workflow.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header">
+        <span class="q-num">Q30</span>
+        <span class="q-title">How do you handle missing data in ML?</span>
+      </div>
+      <div class="q-body">
+        <div class="q-section">
+          <div class="q-label">Techniques</div>
+          <div class="definition">
+            1. Drop rows/columns with missing data (if &lt;5%)<br>
+            2. Mean/Median/Mode imputation<br>
+            3. Forward/Backward fill (time series)<br>
+            4. KNN or MICE imputation<br>
+            5. Add "is_missing" indicator column
+          </div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Code Example</div>
+          <div class="code-wrap">
+            <div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+            <pre><span class="kw">import</span> pandas <span class="kw">as</span> pd
+df[<span class="str">'age'</span>].fillna(df[<span class="str">'age'</span>].median(), inplace=True)
+df.dropna(subset=[<span class="str">'salary'</span>], inplace=True)</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional written round questions Q31-Q40 -->
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">Q31</span><span class="q-title">What is feature scaling and why is it important?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">Feature scaling normalizes numerical features to a common range so that no single feature dominates the model due to its large magnitude.</div></div>
+        <div class="q-section"><div class="q-label">Methods</div><p class="example-box">Min-Max Scaling (0–1 range), Standardization (Z-score: mean=0, std=1), Robust Scaler (uses IQR — good for outliers).</p></div>
+        <div class="q-section"><div class="q-label">When needed</div><p class="example-box">KNN, SVM, Neural Networks — yes. Tree-based models (RF, XGBoost) — not required.</p></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">Q32</span><span class="q-title">What is the difference between Precision and Recall?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">Precision = of all predicted positives, how many were actually positive? Recall = of all actual positives, how many did we catch?</div></div>
+        <div class="q-section"><div class="q-label">Tradeoff Example</div><p class="example-box">Cancer screening: high Recall is priority (don't miss any patient). Email spam: high Precision preferred (don't filter legitimate emails).</p></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">Q33</span><span class="q-title">What is One-Hot Encoding?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">One-hot encoding converts categorical variables into binary columns. "Red/Green/Blue" becomes three binary columns: [1,0,0], [0,1,0], [0,0,1].</div></div>
+        <div class="q-section"><div class="q-label">Code</div>
+          <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+          <pre>pd.get_dummies(df[<span class="str">'color'</span>], drop_first=True)</pre></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">Q34</span><span class="q-title">What is Cross-Validation?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">Cross-validation evaluates model performance more reliably by splitting data into k folds — training on k-1 folds and testing on 1 fold, rotating each fold as the test set.</div></div>
+        <div class="q-section"><div class="q-label">Industry Example</div><p class="example-box">k-Fold CV with k=5 gives 5 accuracy scores. Average them for a stable performance estimate before final deployment.</p></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">Q35</span><span class="q-title">What is the ROC-AUC curve?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">ROC (Receiver Operating Characteristic) curve plots True Positive Rate vs False Positive Rate at various thresholds. AUC (Area Under Curve) = 0.5 means random guessing, 1.0 means perfect classifier.</div></div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>When to prefer AUC over accuracy?</span><span>What is threshold tuning?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">Q36</span><span class="q-title">What is a Primary Key vs Foreign Key in SQL?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">Primary Key uniquely identifies each row in a table and cannot be NULL. Foreign Key references the Primary Key of another table, establishing a relationship.</div></div>
+        <div class="q-section"><div class="q-label">Example</div><p class="example-box">Orders table has customer_id as a Foreign Key that references the id (Primary Key) in the Customers table.</p></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">Q37</span><span class="q-title">What is NLP (Natural Language Processing)?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">NLP is the branch of AI that enables computers to understand, interpret, and generate human language.</div></div>
+        <div class="q-section"><div class="q-label">Applications</div><p class="example-box">Sentiment analysis, Machine translation (Google Translate), Named Entity Recognition, Text summarization, Chatbots.</p></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">Q38</span><span class="q-title">What is the difference between UNION and UNION ALL in SQL?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">UNION combines result sets of two queries and removes duplicates. UNION ALL combines all rows including duplicates — faster because no deduplication step.</div></div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>When is UNION ALL preferred?</span><span>Can UNION join different column types?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">Q39</span><span class="q-title">What is model deployment in ML?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">Model deployment is the process of integrating a trained ML model into a production environment so that it can serve real-time or batch predictions to end users.</div></div>
+        <div class="q-section"><div class="q-label">Tools</div><p class="example-box">Flask/FastAPI for REST APIs, Docker for containerization, AWS/GCP/Azure for cloud hosting, MLflow for model tracking.</p></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">Q40</span><span class="q-title">What is the difference between a parameter and a hyperparameter in ML?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">Parameters are learned by the model during training (e.g., weights in neural networks). Hyperparameters are set before training by the developer (e.g., learning rate, number of trees in Random Forest).</div></div>
+        <div class="q-section"><div class="q-label">Industry Example</div><p class="example-box">GridSearchCV or RandomSearchCV automates hyperparameter tuning to find the best combination without manual trial-and-error.</p></div>
+      </div>
+    </div>
+
+  </div><!-- end written q-grid -->
+</div><!-- /written section -->
+
+
+<!-- ══════════════════════════════════════════════
+  SECTION 2 – TECHNICAL ROUND
+══════════════════════════════════════════════ -->
+<div id="technical" class="section-wrap container">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <div class="section-info">
+      <h2>Technical Round</h2>
+      <p>60+ deep-dive questions on Python, ML algorithms, GenAI, and system design</p>
+    </div>
+  </div>
+
+  <div class="topic-label">🐍 Advanced Python & Data Structures</div>
+  <div class="q-grid">
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T01</span><span class="q-title">What is the difference between a stack and a queue?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">Stack = LIFO (Last In First Out) — like a pile of plates. Queue = FIFO (First In First Out) — like a line of people.</div></div>
+        <div class="q-section"><div class="q-label">Python Implementation</div>
+          <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+          <pre><span class="cm"># Stack (using list)</span>
+stack = []
+stack.append(<span class="num">1</span>); stack.append(<span class="num">2</span>)
+stack.pop()  <span class="cm"># 2 (LIFO)</span>
+
+<span class="cm"># Queue (using deque)</span>
+<span class="kw">from</span> collections <span class="kw">import</span> deque
+q = deque()
+q.append(<span class="num">1</span>); q.append(<span class="num">2</span>)
+q.popleft()  <span class="cm"># 1 (FIFO)</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T02</span><span class="q-title">What is a dictionary in Python and how does it work internally?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">A Python dict stores key-value pairs using a hash table. Keys are hashed to find their storage bucket, giving O(1) average lookup time.</div></div>
+        <div class="q-section"><div class="q-label">Common Operations</div>
+          <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+          <pre>d = {<span class="str">'name'</span>: <span class="str">'AI'</span>, <span class="str">'score'</span>: <span class="num">95</span>}
+d.get(<span class="str">'name'</span>)       <span class="cm"># 'AI'</span>
+d.keys()            <span class="cm"># dict_keys(['name','score'])</span>
+d.items()           <span class="cm"># dict_items([...])</span></pre></div>
+        </div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>Dict vs defaultdict vs OrderedDict?</span><span>Are dicts ordered in Python 3.7+?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T03</span><span class="q-title">What is exception handling in Python?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">Exception handling uses try/except/finally blocks to gracefully handle runtime errors without crashing the program.</div></div>
+        <div class="q-section"><div class="q-label">Example</div>
+          <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+          <pre><span class="kw">try</span>:
+    result = <span class="num">10</span> / <span class="num">0</span>
+<span class="kw">except</span> ZeroDivisionError <span class="kw">as</span> e:
+    <span class="fn">print</span>(<span class="str">f"Error: {e}"</span>)
+<span class="kw">finally</span>:
+    <span class="fn">print</span>(<span class="str">"Always runs"</span>)</pre></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T04</span><span class="q-title">What is Python's map(), filter(), and reduce()?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">map() applies a function to each element. filter() keeps elements that pass a condition. reduce() applies a function cumulatively (needs functools).</div></div>
+        <div class="q-section"><div class="q-label">Example</div>
+          <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+          <pre>nums = [<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>,<span class="num">4</span>,<span class="num">5</span>]
+<span class="fn">list</span>(<span class="fn">map</span>(<span class="kw">lambda</span> x: x*<span class="num">2</span>, nums))    <span class="cm"># [2,4,6,8,10]</span>
+<span class="fn">list</span>(<span class="fn">filter</span>(<span class="kw">lambda</span> x: x%<span class="num">2</span>==<span class="num">0</span>, nums)) <span class="cm"># [2,4]</span>
+
+<span class="kw">from</span> functools <span class="kw">import</span> reduce
+reduce(<span class="kw">lambda</span> a,b: a+b, nums)      <span class="cm"># 15</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="topic-label">🤖 ML Algorithms – Deep Dive</div>
+  <div class="q-grid">
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T05</span><span class="q-title">Explain Linear Regression in detail.</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">Linear Regression models the relationship between a dependent variable y and one or more independent variables x by fitting a straight line: y = mx + b.</div></div>
+        <div class="q-section"><div class="q-label">Loss Function</div><p class="example-box">Mean Squared Error (MSE) = (1/n) × Σ(actual − predicted)². Minimize MSE using Gradient Descent or Normal Equation.</p></div>
+        <div class="q-section"><div class="q-label">Assumptions</div><p class="example-box">Linearity, Independence, Homoscedasticity (constant variance), Normality of residuals, No multicollinearity.</p></div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>Simple vs Multiple Linear Regression?</span><span>What is R² score?</span><span>What is Lasso vs Ridge?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T06</span><span class="q-title">Explain Decision Tree algorithm.</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">A Decision Tree splits data into branches based on feature conditions, creating a tree-like structure of if-else decisions to reach predictions at leaf nodes.</div></div>
+        <div class="q-section"><div class="q-label">Splitting Criteria</div>
+          <div class="tbl-wrap"><table>
+            <tr><th>Criterion</th><th>Used For</th><th>Measures</th></tr>
+            <tr><td>Gini Impurity</td><td>Classification</td><td>Probability of wrong classification</td></tr>
+            <tr><td>Entropy / Info Gain</td><td>Classification</td><td>Information gained from split</td></tr>
+            <tr><td>MSE</td><td>Regression</td><td>Variance reduction</td></tr>
+          </table></div>
+        </div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>How to prevent overfitting in DT?</span><span>What is pruning?</span><span>Max depth parameter?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T07</span><span class="q-title">What is Random Forest and how does it work?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">Random Forest is an ensemble of decision trees trained on random subsets of data (bagging) and random feature subsets. Final prediction is by majority vote (classification) or average (regression).</div></div>
+        <div class="q-section"><div class="q-label">Why Better than Single DT?</div><p class="example-box">Individual trees overfit. Averaging many diverse trees (built on different data samples) reduces variance — ensemble wisdom overcomes individual model noise.</p></div>
+        <div class="q-section"><div class="q-label">Key Hyperparameters</div><p class="example-box">n_estimators (number of trees), max_depth, max_features, min_samples_split.</p></div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>Bagging vs Boosting?</span><span>Feature importance in RF?</span><span>RF vs XGBoost?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T08</span><span class="q-title">Explain K-Means Clustering.</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">K-Means partitions n data points into k clusters by iteratively assigning each point to the nearest centroid and updating centroids until convergence.</div></div>
+        <div class="q-section"><div class="q-label">Algorithm Steps</div><p class="example-box">1. Initialize k centroids randomly. 2. Assign each point to nearest centroid. 3. Recompute centroid = mean of assigned points. 4. Repeat steps 2-3 until centroids don't move.</p></div>
+        <div class="q-section"><div class="q-label">Elbow Method</div><p class="example-box">Plot inertia (sum of distances to centroid) vs k. The "elbow" point where the curve bends is the optimal k.</p></div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>K-Means limitations?</span><span>K-Means++ initialization?</span><span>DBSCAN vs K-Means?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T09</span><span class="q-title">What is Logistic Regression (despite the name, it's for classification)?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">Logistic Regression predicts the probability of a binary outcome using the sigmoid function: σ(z) = 1 / (1 + e⁻ᶻ). Output is between 0 and 1 — threshold at 0.5 gives binary classification.</div></div>
+        <div class="q-section"><div class="q-label">Industry Example</div><p class="example-box">Predicting whether a customer will churn (Yes/No) based on usage patterns.</p></div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>Logistic Regression vs SVM?</span><span>What is the loss function for LR?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T10</span><span class="q-title">What is Support Vector Machine (SVM)?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">SVM finds the optimal hyperplane that maximizes the margin between two classes. Support vectors are the data points closest to the hyperplane.</div></div>
+        <div class="q-section"><div class="q-label">Kernel Trick</div><p class="example-box">For non-linearly separable data, kernels (RBF, Polynomial) map data to higher dimensions where a linear separator exists.</p></div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>C parameter in SVM?</span><span>SVM for multi-class?</span><span>When is SVM better than RF?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T11</span><span class="q-title">What is PCA (Principal Component Analysis)?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">PCA is a dimensionality reduction technique that transforms data into a new coordinate system where the principal components (PCs) capture maximum variance in descending order.</div></div>
+        <div class="q-section"><div class="q-label">Use Cases</div><p class="example-box">Visualizing high-dimensional data in 2D/3D, removing noise, speeding up ML training on large feature sets, compressing image data.</p></div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>PCA vs t-SNE vs UMAP?</span><span>How many components to keep?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T12</span><span class="q-title">What is Regularization (L1 vs L2)?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">Regularization adds a penalty to the loss function to prevent overfitting by discouraging large weights.</div></div>
+        <div class="q-section"><div class="tbl-wrap"><table>
+          <tr><th>Type</th><th>Penalty</th><th>Effect</th><th>Model Name</th></tr>
+          <tr><td>L1 (Lasso)</td><td>Sum of |weights|</td><td>Sparse weights (some = 0)</td><td>Lasso</td></tr>
+          <tr><td>L2 (Ridge)</td><td>Sum of weights²</td><td>Small but non-zero weights</td><td>Ridge</td></tr>
+          <tr><td>L1 + L2</td><td>Both</td><td>Combination</td><td>ElasticNet</td></tr>
+        </table></div></div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>When to use L1 vs L2?</span><span>What is the lambda/alpha parameter?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T13</span><span class="q-title">What is XGBoost and how does it differ from Random Forest?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">XGBoost is a boosting algorithm that builds trees sequentially — each new tree corrects errors made by the previous ones. RF builds trees in parallel (bagging).</div></div>
+        <div class="q-section"><div class="tbl-wrap"><table>
+          <tr><th>Aspect</th><th>Random Forest</th><th>XGBoost</th></tr>
+          <tr><td>Method</td><td>Bagging (parallel)</td><td>Boosting (sequential)</td></tr>
+          <tr><td>Speed</td><td>Faster training</td><td>Slower but often better</td></tr>
+          <tr><td>Overfitting</td><td>Less prone</td><td>Needs careful tuning</td></tr>
+        </table></div></div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>Gradient Boosting vs XGBoost vs LightGBM?</span><span>What is learning_rate in XGBoost?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T14</span><span class="q-title">What is Neural Network and how does Backpropagation work?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">A Neural Network is layers of interconnected neurons. Backpropagation computes the gradient of the loss with respect to each weight using the chain rule, then gradient descent updates the weights.</div></div>
+        <div class="q-section"><div class="q-label">Flow</div><p class="example-box">Forward pass: input → layers → prediction. Compute loss. Backward pass: chain rule propagates error gradients backwards. Update weights: w = w − α × ∂L/∂w.</p></div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>What is the vanishing gradient problem?</span><span>What is ReLU and why use it?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T15</span><span class="q-title">What is Transfer Learning?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">Transfer learning reuses a pre-trained model (trained on a large dataset) and fine-tunes it on a smaller, specific dataset — saving time and computational resources.</div></div>
+        <div class="q-section"><div class="q-label">Industry Example</div><p class="example-box">Use VGG16 (pre-trained on ImageNet) for a custom medical image classifier. Replace only the final layers and fine-tune on 1,000 hospital images.</p></div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>Fine-tuning vs Feature Extraction?</span><span>BERT for NLP transfer learning?</span></div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="topic-label">✨ GenAI – Technical Deep Dive</div>
+  <div class="q-grid">
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T16</span><span class="q-title">What is the Transformer architecture?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">Transformer is a deep learning architecture using Self-Attention mechanisms to process sequences in parallel, eliminating the sequential bottleneck of RNNs. It's the foundation of all modern LLMs.</div></div>
+        <div class="q-section"><div class="q-label">Key Components</div><p class="example-box">Multi-head Self-Attention, Positional Encoding, Feed-Forward Layers, Layer Normalization, Encoder-Decoder structure (in original) or Decoder-only (GPT-style).</p></div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>What is attention in NLP?</span><span>Encoder-only vs Decoder-only models?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T17</span><span class="q-title">What are Embeddings in AI?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">Embeddings are dense numerical vector representations of data (text, images, audio) that capture semantic meaning. Similar items have vectors that are close together in vector space.</div></div>
+        <div class="q-section"><div class="q-label">Example</div><p class="example-box">king − man + woman ≈ queen (Word2Vec embeddings demonstrate semantic arithmetic). Text embeddings are used to measure document similarity.</p></div>
+        <div class="q-section"><div class="q-label">Industry Example</div><p class="example-box">OpenAI's text-embedding-ada-002 converts documents into 1536-dimensional vectors for semantic search in RAG systems.</p></div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>Word2Vec vs BERT embeddings?</span><span>How is cosine similarity used?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T18</span><span class="q-title">What is a Vector Database?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">A vector database stores high-dimensional embedding vectors and supports fast similarity search (nearest neighbor search) using algorithms like HNSW or IVFFlat.</div></div>
+        <div class="q-section"><div class="q-label">Popular Tools</div><p class="example-box">Pinecone, Weaviate, Chroma, Qdrant, Milvus, FAISS (Facebook AI Similarity Search — free, local).</p></div>
+        <div class="q-section"><div class="q-label">Use in RAG</div><p class="example-box">Store document embeddings in vector DB → embed user query → retrieve top-k similar docs → pass to LLM as context.</p></div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>Cosine vs Euclidean similarity?</span><span>FAISS vs Pinecone?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T19</span><span class="q-title">What is LangChain?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">LangChain is an open-source Python framework for building LLM-powered applications by chaining together components: prompts, LLMs, memory, tools, and document loaders.</div></div>
+        <div class="q-section"><div class="q-label">Key Components</div>
+          <div class="tbl-wrap"><table>
+            <tr><th>Component</th><th>Purpose</th></tr>
+            <tr><td>LLMs/ChatModels</td><td>Connect to OpenAI, Anthropic, etc.</td></tr>
+            <tr><td>Chains</td><td>Sequence of operations</td></tr>
+            <tr><td>Memory</td><td>Conversation history</td></tr>
+            <tr><td>Agents</td><td>LLM that decides which tools to call</td></tr>
+            <tr><td>Document Loaders</td><td>Load PDFs, websites, CSVs</td></tr>
+            <tr><td>VectorStores</td><td>Interface to FAISS, Chroma</td></tr>
+          </table></div>
+        </div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>LangChain vs LlamaIndex?</span><span>What are Agents in LangChain?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T20</span><span class="q-title">What is Fine-tuning an LLM?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">Fine-tuning further trains a pre-trained LLM on a domain-specific dataset to specialize its behavior for specific tasks — like medical Q&A, legal document analysis, or customer support.</div></div>
+        <div class="q-section"><div class="q-label">Types</div>
+          <div class="tbl-wrap"><table>
+            <tr><th>Method</th><th>Description</th></tr>
+            <tr><td>Full Fine-tuning</td><td>Update all weights (expensive)</td></tr>
+            <tr><td>LoRA</td><td>Low-Rank Adaptation — trains small matrices only</td></tr>
+            <tr><td>QLoRA</td><td>Quantized LoRA — fine-tune on consumer GPUs</td></tr>
+            <tr><td>RLHF</td><td>Reinforcement Learning from Human Feedback (ChatGPT method)</td></tr>
+          </table></div>
+        </div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>Fine-tuning vs RAG — when to use each?</span><span>What is PEFT?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T21</span><span class="q-title">What is Hallucination in LLMs?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">Hallucination occurs when an LLM generates plausible-sounding but factually incorrect or completely fabricated information — presented with high confidence.</div></div>
+        <div class="q-section"><div class="q-label">Mitigation Strategies</div><p class="example-box">Use RAG to ground answers in verified sources. Use temperature=0 for factual tasks. Add "I don't know" fallback. Use hallucination detection tools like TruLens or RAGAS.</p></div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>Why do LLMs hallucinate?</span><span>What is grounding in LLMs?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T22</span><span class="q-title">What is Tokenization in LLMs?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">Tokenization splits text into tokens — small units the model processes. Tokens can be words, subwords, or characters. GPT-4 uses ~4 characters per token on average.</div></div>
+        <div class="q-section"><div class="q-label">Example</div><p class="example-box">"ChatGPT is amazing!" → ["Chat", "GPT", " is", " amazing", "!"] — each token has an integer ID the model processes numerically.</p></div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>What is BPE (Byte Pair Encoding)?</span><span>How does token count affect cost?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T23</span><span class="q-title">What is the context window in LLMs?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">The context window is the maximum number of tokens an LLM can process in a single interaction (input + output combined). Beyond this limit, the model "forgets" earlier content.</div></div>
+        <div class="q-section"><div class="q-label">Examples</div>
+          <div class="tbl-wrap"><table>
+            <tr><th>Model</th><th>Context Window</th></tr>
+            <tr><td>GPT-3.5</td><td>16k tokens</td></tr>
+            <tr><td>GPT-4o</td><td>128k tokens</td></tr>
+            <tr><td>Claude 3.5</td><td>200k tokens</td></tr>
+            <tr><td>Gemini 1.5 Pro</td><td>1M tokens</td></tr>
+          </table></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T24</span><span class="q-title">What is Temperature in LLM generation?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">Temperature controls the randomness of LLM output. Low temperature (0–0.3) = deterministic/focused. High temperature (0.7–1.0) = creative/varied.</div></div>
+        <div class="q-section"><div class="q-label">Use Cases</div><p class="example-box">temp=0: factual Q&A, code generation. temp=0.7: chatbot, creative writing. temp=1.0: brainstorming, poetry, story generation.</p></div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>What is top_p (nucleus sampling)?</span><span>What is top_k sampling?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T25</span><span class="q-title">What is the difference between an AI Agent and a simple LLM chatbot?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">A chatbot passively responds to user messages. An AI Agent is an autonomous system that uses an LLM to reason, plan, and take actions — calling tools, APIs, searching the web — to complete multi-step goals.</div></div>
+        <div class="q-section"><div class="q-label">Agent Loop</div><p class="example-box">User Goal → LLM Thinks → Decides to use Tool → Executes Tool → Observes Result → LLM Thinks again → Final Answer (ReAct framework).</p></div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>What are tools/function calling in LLMs?</span><span>LangChain Agents?</span></div></div>
+      </div>
+    </div>
+
+    <!-- More technical questions T26-T40 -->
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T26</span><span class="q-title">What is the difference between CNN and RNN?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">CNN (Convolutional Neural Network) is designed for spatial data like images — uses convolutional filters to detect local patterns. RNN (Recurrent Neural Network) is designed for sequential data — has memory of previous steps via hidden state.</div></div>
+        <div class="q-section"><div class="tbl-wrap"><table>
+          <tr><th>Aspect</th><th>CNN</th><th>RNN</th></tr>
+          <tr><td>Best for</td><td>Images, spatial data</td><td>Text, time-series, speech</td></tr>
+          <tr><td>Memory</td><td>No sequential memory</td><td>Has hidden state memory</td></tr>
+          <tr><td>Architecture</td><td>Convolution layers</td><td>Recurrent connections</td></tr>
+        </table></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T27</span><span class="q-title">What is the train-test split and why is it necessary?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">Splitting data into training (70-80%) and testing (20-30%) sets ensures the model is evaluated on data it has never seen — giving an unbiased estimate of real-world performance.</div></div>
+        <div class="q-section"><div class="q-label">Code Example</div>
+          <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+          <pre><span class="kw">from</span> sklearn.model_selection <span class="kw">import</span> train_test_split
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=<span class="num">0.2</span>, random_state=<span class="num">42</span>
+)</pre></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T28</span><span class="q-title">What is data augmentation in ML?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">Data augmentation artificially increases training dataset size by applying transformations to existing data — flipping, rotating, cropping images; synonym replacement in text.</div></div>
+        <div class="q-section"><div class="q-label">Industry Example</div><p class="example-box">In medical image AI with only 500 X-rays, augmentation (horizontal flip, brightness change, rotation) generates 5000+ training samples.</p></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T29</span><span class="q-title">What is BERT and how does it differ from GPT?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">BERT (Bidirectional Encoder Representations from Transformers) reads text bidirectionally — understands context from both left and right. GPT uses Decoder-only, generating text left-to-right autoregressively.</div></div>
+        <div class="q-section"><div class="tbl-wrap"><table>
+          <tr><th>Model</th><th>Architecture</th><th>Best For</th></tr>
+          <tr><td>BERT</td><td>Encoder-only, bidirectional</td><td>Classification, NER, Q&A</td></tr>
+          <tr><td>GPT</td><td>Decoder-only, unidirectional</td><td>Text generation, chatbots</td></tr>
+        </table></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">T30</span><span class="q-title">What is a REST API and how does it relate to ML deployment?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">A REST API exposes ML model predictions over HTTP endpoints. Client sends a POST request with input data; server returns predictions in JSON format.</div></div>
+        <div class="q-section"><div class="q-label">Flask Example</div>
+          <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+          <pre><span class="kw">from</span> flask <span class="kw">import</span> Flask, request, jsonify
+app = Flask(__name__)
+
+@app.route(<span class="str">'/predict'</span>, methods=[<span class="str">'POST'</span>])
+<span class="kw">def</span> <span class="fn">predict</span>():
+    data = request.get_json()
+    pred = model.predict([data[<span class="str">'features'</span>]])
+    <span class="kw">return</span> jsonify({<span class="str">'prediction'</span>: pred[<span class="num">0</span>]})</pre></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════
+  SECTION 3 – CODING QUESTIONS
+══════════════════════════════════════════════ -->
+<div id="coding" class="section-wrap container">
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <div class="section-info">
+      <h2>Python Coding Questions</h2>
+      <p>25 hands-on coding problems with full solutions and explanations</p>
+    </div>
+  </div>
+
+  <!-- C01 -->
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">C01</span> Find duplicates in a list</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+      <pre><span class="kw">def</span> <span class="fn">find_duplicates</span>(lst):
+    seen = <span class="fn">set</span>()
+    duplicates = <span class="fn">set</span>()
+    <span class="kw">for</span> item <span class="kw">in</span> lst:
+        <span class="kw">if</span> item <span class="kw">in</span> seen:
+            duplicates.add(item)
+        <span class="kw">else</span>:
+            seen.add(item)
+    <span class="kw">return</span> <span class="fn">list</span>(duplicates)
+
+<span class="fn">print</span>(<span class="fn">find_duplicates</span>([<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>,<span class="num">2</span>,<span class="num">4</span>,<span class="num">3</span>]))  <span class="cm"># [2, 3]</span></pre>
+      </div>
+      <p>Uses a set to track seen elements — O(n) time and O(n) space complexity.</p>
+    </div>
+  </div>
+
+  <!-- C02 -->
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">C02</span> Reverse a string without using slicing</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+      <pre><span class="kw">def</span> <span class="fn">reverse_string</span>(s):
+    result = <span class="str">""</span>
+    <span class="kw">for</span> ch <span class="kw">in</span> s:
+        result = ch + result  <span class="cm"># prepend each char</span>
+    <span class="kw">return</span> result
+
+<span class="fn">print</span>(<span class="fn">reverse_string</span>(<span class="str">"hello"</span>))  <span class="cm"># "olleh"</span>
+
+<span class="cm"># Alternative using reversed()</span>
+<span class="kw">def</span> <span class="fn">reverse_v2</span>(s):
+    <span class="kw">return</span> <span class="str">""</span>.join(<span class="fn">reversed</span>(s))</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- C03 -->
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">C03</span> Find the second largest number in a list</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+      <pre><span class="kw">def</span> <span class="fn">second_largest</span>(nums):
+    unique = <span class="fn">list</span>(<span class="fn">set</span>(nums))  <span class="cm"># remove duplicates</span>
+    unique.sort()
+    <span class="kw">return</span> unique[-<span class="num">2</span>] <span class="kw">if</span> <span class="fn">len</span>(unique) &gt;= <span class="num">2</span> <span class="kw">else</span> <span class="kw">None</span>
+
+<span class="fn">print</span>(<span class="fn">second_largest</span>([<span class="num">3</span>,<span class="num">1</span>,<span class="num">4</span>,<span class="num">1</span>,<span class="num">5</span>,<span class="num">9</span>,<span class="num">2</span>,<span class="num">6</span>]))  <span class="cm"># 6</span></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- C04 -->
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">C04</span> Character frequency count in a string</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+      <pre><span class="kw">from</span> collections <span class="kw">import</span> Counter
+
+<span class="kw">def</span> <span class="fn">char_frequency</span>(s):
+    <span class="kw">return</span> <span class="fn">dict</span>(Counter(s))
+
+<span class="fn">print</span>(<span class="fn">char_frequency</span>(<span class="str">"banana"</span>))
+<span class="cm"># {'b':1, 'a':3, 'n':2}</span>
+
+<span class="cm"># Manual approach</span>
+<span class="kw">def</span> <span class="fn">char_freq_manual</span>(s):
+    freq = {}
+    <span class="kw">for</span> ch <span class="kw">in</span> s:
+        freq[ch] = freq.get(ch, <span class="num">0</span>) + <span class="num">1</span>
+    <span class="kw">return</span> freq</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- C05 -->
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">C05</span> Check if a number is prime</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+      <pre><span class="kw">def</span> <span class="fn">is_prime</span>(n):
+    <span class="kw">if</span> n &lt; <span class="num">2</span>: <span class="kw">return</span> <span class="kw">False</span>
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">2</span>, <span class="fn">int</span>(n**<span class="num">0.5</span>) + <span class="num">1</span>):
+        <span class="kw">if</span> n % i == <span class="num">0</span>:
+            <span class="kw">return</span> <span class="kw">False</span>
+    <span class="kw">return</span> <span class="kw">True</span>
+
+<span class="fn">print</span>(<span class="fn">is_prime</span>(<span class="num">17</span>))   <span class="cm"># True</span>
+<span class="fn">print</span>(<span class="fn">is_prime</span>(<span class="num">18</span>))   <span class="cm"># False</span></pre>
+      </div>
+      <p>Checking up to √n is the optimized approach — O(√n) time complexity.</p>
+    </div>
+  </div>
+
+  <!-- C06 -->
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">C06</span> Fibonacci sequence using a generator</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+      <pre><span class="kw">def</span> <span class="fn">fibonacci</span>(n):
+    a, b = <span class="num">0</span>, <span class="num">1</span>
+    <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(n):
+        <span class="kw">yield</span> a
+        a, b = b, a + b
+
+<span class="fn">print</span>(<span class="fn">list</span>(<span class="fn">fibonacci</span>(<span class="num">8</span>)))
+<span class="cm"># [0, 1, 1, 2, 3, 5, 8, 13]</span></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- C07 -->
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">C07</span> Palindrome check for string and numbers</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+      <pre><span class="kw">def</span> <span class="fn">is_palindrome</span>(s):
+    s = <span class="fn">str</span>(s).lower().replace(<span class="str">" "</span>, <span class="str">""</span>)
+    <span class="kw">return</span> s == s[::-<span class="num">1</span>]
+
+<span class="fn">print</span>(<span class="fn">is_palindrome</span>(<span class="str">"racecar"</span>))  <span class="cm"># True</span>
+<span class="fn">print</span>(<span class="fn">is_palindrome</span>(<span class="num">12321</span>))      <span class="cm"># True</span>
+<span class="fn">print</span>(<span class="fn">is_palindrome</span>(<span class="str">"hello"</span>))    <span class="cm"># False</span></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- C08 -->
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">C08</span> Flatten a nested list</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+      <pre><span class="kw">def</span> <span class="fn">flatten</span>(lst):
+    result = []
+    <span class="kw">for</span> item <span class="kw">in</span> lst:
+        <span class="kw">if</span> <span class="fn">isinstance</span>(item, <span class="fn">list</span>):
+            result.extend(<span class="fn">flatten</span>(item))  <span class="cm"># recursive</span>
+        <span class="kw">else</span>:
+            result.append(item)
+    <span class="kw">return</span> result
+
+<span class="fn">print</span>(<span class="fn">flatten</span>([<span class="num">1</span>, [<span class="num">2</span>, [<span class="num">3</span>, <span class="num">4</span>]], <span class="num">5</span>]))
+<span class="cm"># [1, 2, 3, 4, 5]</span></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- C09 -->
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">C09</span> Two Sum problem (find pairs that sum to target)</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+      <pre><span class="kw">def</span> <span class="fn">two_sum</span>(nums, target):
+    seen = {}
+    <span class="kw">for</span> i, n <span class="kw">in</span> <span class="fn">enumerate</span>(nums):
+        complement = target - n
+        <span class="kw">if</span> complement <span class="kw">in</span> seen:
+            <span class="kw">return</span> [seen[complement], i]
+        seen[n] = i
+    <span class="kw">return</span> []
+
+<span class="fn">print</span>(<span class="fn">two_sum</span>([<span class="num">2</span>,<span class="num">7</span>,<span class="num">11</span>,<span class="num">15</span>], <span class="num">9</span>))  <span class="cm"># [0, 1]</span></pre>
+      </div>
+      <p>Hash map approach gives O(n) time — much better than brute force O(n²).</p>
+    </div>
+  </div>
+
+  <!-- C10 -->
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">C10</span> Anagram check for two strings</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+      <pre><span class="kw">def</span> <span class="fn">is_anagram</span>(s1, s2):
+    <span class="kw">return</span> Counter(s1.lower()) == Counter(s2.lower())
+
+<span class="fn">print</span>(<span class="fn">is_anagram</span>(<span class="str">"listen"</span>, <span class="str">"silent"</span>))  <span class="cm"># True</span>
+<span class="fn">print</span>(<span class="fn">is_anagram</span>(<span class="str">"hello"</span>, <span class="str">"world"</span>))    <span class="cm"># False</span></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- C11–C25 in compact form -->
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">C11</span> Count vowels and consonants in a string</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+      <pre><span class="kw">def</span> <span class="fn">count_vc</span>(s):
+    vowels = <span class="fn">set</span>(<span class="str">"aeiouAEIOU"</span>)
+    v = <span class="fn">sum</span>(<span class="num">1</span> <span class="kw">for</span> c <span class="kw">in</span> s <span class="kw">if</span> c <span class="kw">in</span> vowels)
+    cons = <span class="fn">sum</span>(<span class="num">1</span> <span class="kw">for</span> c <span class="kw">in</span> s <span class="kw">if</span> c.isalpha() <span class="kw">and</span> c <span class="kw">not in</span> vowels)
+    <span class="kw">return</span> {<span class="str">"vowels"</span>: v, <span class="str">"consonants"</span>: cons}
+
+<span class="fn">print</span>(<span class="fn">count_vc</span>(<span class="str">"Python"</span>))  <span class="cm"># {'vowels': 2, 'consonants': 4}</span></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">C12</span> Sort a list of tuples by second element</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+      <pre>data = [(<span class="str">"Alice"</span>,<span class="num">90</span>), (<span class="str">"Bob"</span>,<span class="num">75</span>), (<span class="str">"Charlie"</span>,<span class="num">85</span>)]
+sorted_data = <span class="fn">sorted</span>(data, key=<span class="kw">lambda</span> x: x[<span class="num">1</span>], reverse=<span class="kw">True</span>)
+<span class="cm"># [("Alice",90), ("Charlie",85), ("Bob",75)]</span></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">C13</span> Count words in a sentence</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+      <pre><span class="kw">def</span> <span class="fn">word_count</span>(sentence):
+    words = sentence.strip().split()
+    <span class="kw">return</span> Counter(words)
+
+<span class="fn">print</span>(<span class="fn">word_count</span>(<span class="str">"ai is the future of ai"</span>))
+<span class="cm"># Counter({'ai': 2, 'is': 1, 'the': 1, 'future': 1, 'of': 1})</span></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">C14</span> Merge two sorted lists</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+      <pre><span class="kw">def</span> <span class="fn">merge_sorted</span>(a, b):
+    result = []
+    i = j = <span class="num">0</span>
+    <span class="kw">while</span> i &lt; <span class="fn">len</span>(a) <span class="kw">and</span> j &lt; <span class="fn">len</span>(b):
+        <span class="kw">if</span> a[i] &lt; b[j]:
+            result.append(a[i]); i += <span class="num">1</span>
+        <span class="kw">else</span>:
+            result.append(b[j]); j += <span class="num">1</span>
+    result += a[i:]; result += b[j:]
+    <span class="kw">return</span> result
+
+<span class="fn">print</span>(<span class="fn">merge_sorted</span>([<span class="num">1</span>,<span class="num">3</span>,<span class="num">5</span>], [<span class="num">2</span>,<span class="num">4</span>,<span class="num">6</span>]))  <span class="cm"># [1,2,3,4,5,6]</span></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">C15</span> Remove duplicates while preserving order</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+      <pre><span class="kw">def</span> <span class="fn">remove_dups_ordered</span>(lst):
+    seen = <span class="fn">set</span>()
+    <span class="kw">return</span> [x <span class="kw">for</span> x <span class="kw">in</span> lst <span class="kw">if</span> <span class="kw">not</span> (x <span class="kw">in</span> seen <span class="kw">or</span> seen.add(x))]
+
+<span class="fn">print</span>(<span class="fn">remove_dups_ordered</span>([<span class="num">3</span>,<span class="num">1</span>,<span class="num">3</span>,<span class="num">2</span>,<span class="num">1</span>,<span class="num">4</span>]))  <span class="cm"># [3,1,2,4]</span></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">C16</span> Group anagrams together from a list of strings</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+      <pre><span class="kw">from</span> collections <span class="kw">import</span> defaultdict
+
+<span class="kw">def</span> <span class="fn">group_anagrams</span>(words):
+    groups = defaultdict(<span class="fn">list</span>)
+    <span class="kw">for</span> w <span class="kw">in</span> words:
+        groups[<span class="fn">tuple</span>(<span class="fn">sorted</span>(w))].append(w)
+    <span class="kw">return</span> <span class="fn">list</span>(groups.values())
+
+<span class="fn">print</span>(<span class="fn">group_anagrams</span>([<span class="str">"eat"</span>,<span class="str">"tea"</span>,<span class="str">"tan"</span>,<span class="str">"ate"</span>,<span class="str">"nat"</span>,<span class="str">"bat"</span>]))
+<span class="cm"># [["eat","tea","ate"], ["tan","nat"], ["bat"]]</span></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">C17</span> Implement a simple stack class</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+      <pre><span class="kw">class</span> <span class="fn">Stack</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(self):
+        self._data = []
+    <span class="kw">def</span> <span class="fn">push</span>(self, val): self._data.append(val)
+    <span class="kw">def</span> <span class="fn">pop</span>(self):
+        <span class="kw">if</span> self._data: <span class="kw">return</span> self._data.pop()
+        <span class="kw">raise</span> IndexError(<span class="str">"Stack is empty"</span>)
+    <span class="kw">def</span> <span class="fn">peek</span>(self): <span class="kw">return</span> self._data[-<span class="num">1</span>] <span class="kw">if</span> self._data <span class="kw">else</span> <span class="kw">None</span>
+    <span class="kw">def</span> <span class="fn">is_empty</span>(self): <span class="kw">return</span> <span class="fn">len</span>(self._data) == <span class="num">0</span></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">C18</span> Linear Regression from scratch using NumPy</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+      <pre><span class="kw">import</span> numpy <span class="kw">as</span> np
+
+<span class="kw">class</span> <span class="fn">LinearRegression</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, lr=<span class="num">0.01</span>, epochs=<span class="num">1000</span>):
+        self.lr = lr; self.epochs = epochs
+        self.w = self.b = <span class="num">0</span>
+
+    <span class="kw">def</span> <span class="fn">fit</span>(self, X, y):
+        n = <span class="fn">len</span>(X)
+        <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(self.epochs):
+            y_pred = self.w * X + self.b
+            dw = (-<span class="num">2</span>/n) * np.sum(X * (y - y_pred))
+            db = (-<span class="num">2</span>/n) * np.sum(y - y_pred)
+            self.w -= self.lr * dw
+            self.b -= self.lr * db
+
+    <span class="kw">def</span> <span class="fn">predict</span>(self, X):
+        <span class="kw">return</span> self.w * X + self.b</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">C19</span> Count occurrences of each word in a paragraph</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+      <pre><span class="kw">import</span> re
+
+<span class="kw">def</span> <span class="fn">word_frequency</span>(text):
+    words = re.findall(<span class="str">r'\b\w+\b'</span>, text.lower())
+    <span class="kw">return</span> Counter(words).most_common(<span class="num">5</span>)
+
+text = <span class="str">"AI is the future. AI is transforming every industry."</span>
+<span class="fn">print</span>(<span class="fn">word_frequency</span>(text))
+<span class="cm"># [('ai',2), ('is',2), ('the',1), ...]</span></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">C20</span> KNN classifier from scratch</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+      <pre><span class="kw">from</span> collections <span class="kw">import</span> Counter
+<span class="kw">import</span> numpy <span class="kw">as</span> np
+
+<span class="kw">def</span> <span class="fn">euclidean</span>(a, b):
+    <span class="kw">return</span> np.sqrt(np.sum((np.array(a)-np.array(b))**<span class="num">2</span>))
+
+<span class="kw">def</span> <span class="fn">knn_predict</span>(train_X, train_y, test_point, k=<span class="num">3</span>):
+    distances = [(euclidean(x, test_point), y)
+                 <span class="kw">for</span> x, y <span class="kw">in</span> <span class="fn">zip</span>(train_X, train_y)]
+    distances.sort(key=<span class="kw">lambda</span> x: x[<span class="num">0</span>])
+    top_k = [y <span class="kw">for</span> _, y <span class="kw">in</span> distances[:k]]
+    <span class="kw">return</span> Counter(top_k).most_common(<span class="num">1</span>)[<span class="num">0</span>][<span class="num">0</span>]</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">C21–C25</span> Additional Coding Challenges (Quick Reference)</div>
+    <div class="full-card-body">
+      <p><strong style="color:var(--accent)">C21: Missing number in array 1 to n</strong> — Use formula: sum = n*(n+1)/2 − sum(array)</p>
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+      <pre>missing = <span class="kw">lambda</span> a: (<span class="fn">len</span>(a)+<span class="num">1</span>)*(<span class="fn">len</span>(a)+<span class="num">2</span>)//<span class="num">2</span> - <span class="fn">sum</span>(a)
+<span class="fn">print</span>(missing([<span class="num">1</span>,<span class="num">2</span>,<span class="num">4</span>,<span class="num">5</span>,<span class="num">6</span>]))  <span class="cm"># 3</span></pre>
+      </div>
+      <p><strong style="color:var(--accent)">C22: Rotate list by k positions</strong></p>
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+      <pre>rotate = <span class="kw">lambda</span> lst, k: lst[-k:] + lst[:-k]
+<span class="fn">print</span>(rotate([<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>,<span class="num">4</span>,<span class="num">5</span>], <span class="num">2</span>))  <span class="cm"># [4,5,1,2,3]</span></pre>
+      </div>
+      <p><strong style="color:var(--accent)">C23: Matrix transpose</strong></p>
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+      <pre>matrix = [[<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>],[<span class="num">4</span>,<span class="num">5</span>,<span class="num">6</span>]]
+transposed = [[row[i] <span class="kw">for</span> row <span class="kw">in</span> matrix] <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(matrix[<span class="num">0</span>]))]
+<span class="cm"># [[1,4],[2,5],[3,6]]</span></pre>
+      </div>
+      <p><strong style="color:var(--accent)">C24: Compute cosine similarity between two vectors</strong></p>
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+      <pre><span class="kw">import</span> numpy <span class="kw">as</span> np
+<span class="kw">def</span> <span class="fn">cosine_sim</span>(a, b):
+    <span class="kw">return</span> np.dot(a,b) / (np.linalg.norm(a) * np.linalg.norm(b))
+<span class="fn">print</span>(<span class="fn">cosine_sim</span>([<span class="num">1</span>,<span class="num">0</span>], [<span class="num">0</span>,<span class="num">1</span>]))  <span class="cm"># 0.0 (perpendicular)</span></pre>
+      </div>
+      <p><strong style="color:var(--accent)">C25: Preprocessing text for NLP (clean + tokenize)</strong></p>
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+      <pre><span class="kw">import</span> re
+<span class="kw">def</span> <span class="fn">preprocess</span>(text):
+    text = text.lower()
+    text = re.sub(<span class="str">r'[^a-z\s]'</span>, <span class="str">''</span>, text)
+    tokens = text.split()
+    stopwords = {<span class="str">'is'</span>,<span class="str">'the'</span>,<span class="str">'a'</span>,<span class="str">'an'</span>,<span class="str">'in'</span>}
+    <span class="kw">return</span> [t <span class="kw">for</span> t <span class="kw">in</span> tokens <span class="kw">if</span> t <span class="kw">not in</span> stopwords]</pre>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /coding section -->
+
+
+<!-- ══════════════════════════════════════════════
+  SECTION 4 – SQL QUESTIONS
+══════════════════════════════════════════════ -->
+<div id="sql" class="section-wrap container">
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <div class="section-info">
+      <h2>SQL Interview Questions</h2>
+      <p>20 questions with queries and explanations</p>
+    </div>
+  </div>
+
+  <!-- S01 -->
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">S01</span> Find the second highest salary from an Employee table</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">SQL</span></div>
+      <pre><span class="cm">-- Method 1: Using subquery</span>
+<span class="kw">SELECT</span> MAX(salary) <span class="kw">AS</span> second_highest
+<span class="kw">FROM</span> Employee
+<span class="kw">WHERE</span> salary &lt; (<span class="kw">SELECT</span> MAX(salary) <span class="kw">FROM</span> Employee);
+
+<span class="cm">-- Method 2: Using LIMIT and OFFSET</span>
+<span class="kw">SELECT</span> DISTINCT salary
+<span class="kw">FROM</span> Employee
+<span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>
+<span class="kw">LIMIT</span> <span class="num">1</span> <span class="kw">OFFSET</span> <span class="num">1</span>;
+
+<span class="cm">-- Method 3: Using DENSE_RANK()</span>
+<span class="kw">SELECT</span> salary <span class="kw">FROM</span> (
+    <span class="kw">SELECT</span> salary, DENSE_RANK() <span class="kw">OVER</span>(<span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>) <span class="kw">AS</span> rnk
+    <span class="kw">FROM</span> Employee
+) t <span class="kw">WHERE</span> rnk = <span class="num">2</span>;</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">S02</span> Find duplicate records in a table</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">SQL</span></div>
+      <pre><span class="kw">SELECT</span> email, COUNT(*) <span class="kw">AS</span> cnt
+<span class="kw">FROM</span> Users
+<span class="kw">GROUP BY</span> email
+<span class="kw">HAVING</span> COUNT(*) > <span class="num">1</span>;</pre>
+      </div>
+      <p>The HAVING clause filters groups — here we keep only email values that appear more than once.</p>
+    </div>
+  </div>
+
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">S03</span> Find employees who earn more than their manager</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">SQL</span></div>
+      <pre><span class="kw">SELECT</span> e.name <span class="kw">AS</span> Employee
+<span class="kw">FROM</span> Employee e
+<span class="kw">JOIN</span> Employee m <span class="kw">ON</span> e.managerId = m.id
+<span class="kw">WHERE</span> e.salary > m.salary;</pre>
+      </div>
+      <p>Classic SELF JOIN — joins the Employee table to itself comparing employee salary vs manager salary.</p>
+    </div>
+  </div>
+
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">S04</span> Rank employees by salary within each department</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">SQL</span></div>
+      <pre><span class="kw">SELECT</span>
+    name,
+    department,
+    salary,
+    RANK() <span class="kw">OVER</span>(<span class="kw">PARTITION BY</span> department <span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>) <span class="kw">AS</span> dept_rank
+<span class="kw">FROM</span> Employee;</pre>
+      </div>
+      <p>Window function RANK() with PARTITION BY groups ranking by department independently.</p>
+    </div>
+  </div>
+
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">S05</span> Find customers who never placed an order (LEFT JOIN approach)</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">SQL</span></div>
+      <pre><span class="kw">SELECT</span> c.name
+<span class="kw">FROM</span> Customers c
+<span class="kw">LEFT JOIN</span> Orders o <span class="kw">ON</span> c.id = o.customerId
+<span class="kw">WHERE</span> o.id <span class="kw">IS NULL</span>;</pre>
+      </div>
+      <p>LEFT JOIN keeps all customers. WHERE o.id IS NULL filters those with no matching orders.</p>
+    </div>
+  </div>
+
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">S06</span> Get department with highest average salary</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">SQL</span></div>
+      <pre><span class="kw">SELECT</span> department, AVG(salary) <span class="kw">AS</span> avg_sal
+<span class="kw">FROM</span> Employee
+<span class="kw">GROUP BY</span> department
+<span class="kw">ORDER BY</span> avg_sal <span class="kw">DESC</span>
+<span class="kw">LIMIT</span> <span class="num">1</span>;</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">S07</span> Running total (cumulative sum) using window function</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">SQL</span></div>
+      <pre><span class="kw">SELECT</span>
+    order_date,
+    amount,
+    SUM(amount) <span class="kw">OVER</span>(<span class="kw">ORDER BY</span> order_date) <span class="kw">AS</span> running_total
+<span class="kw">FROM</span> Orders;</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">S08</span> Delete duplicate rows keeping only one</div>
+    <div class="full-card-body">
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">SQL</span></div>
+      <pre><span class="kw">DELETE FROM</span> Users
+<span class="kw">WHERE</span> id <span class="kw">NOT IN</span> (
+    <span class="kw">SELECT</span> MIN(id)
+    <span class="kw">FROM</span> Users
+    <span class="kw">GROUP BY</span> email
+);</pre>
+      </div>
+      <p>Keep the row with the smallest id for each email — delete all others.</p>
+    </div>
+  </div>
+
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">S09</span> What is a CTE (Common Table Expression) and how to use it?</div>
+    <div class="full-card-body">
+      <p>A CTE is a named temporary result set defined using WITH that improves query readability.</p>
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">SQL</span></div>
+      <pre><span class="kw">WITH</span> high_earners <span class="kw">AS</span> (
+    <span class="kw">SELECT</span> name, salary
+    <span class="kw">FROM</span> Employee
+    <span class="kw">WHERE</span> salary > <span class="num">80000</span>
+)
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> high_earners <span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>;</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="full-card">
+    <div class="full-card-header"><span class="q-num">S10–S20</span> Additional SQL Questions (Compact)</div>
+    <div class="full-card-body">
+      <p><strong style="color:var(--accent2)">S10: Count employees in each department</strong></p>
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">SQL</span></div>
+      <pre><span class="kw">SELECT</span> department, COUNT(*) <span class="kw">AS</span> count <span class="kw">FROM</span> Employee <span class="kw">GROUP BY</span> department;</pre>
+      </div>
+      <p><strong style="color:var(--accent2)">S11: Find employees with salary between 50k and 80k</strong></p>
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">SQL</span></div>
+      <pre><span class="kw">SELECT</span> * <span class="kw">FROM</span> Employee <span class="kw">WHERE</span> salary <span class="kw">BETWEEN</span> <span class="num">50000</span> <span class="kw">AND</span> <span class="num">80000</span>;</pre>
+      </div>
+      <p><strong style="color:var(--accent2)">S12: Find the nth highest salary generically</strong></p>
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">SQL</span></div>
+      <pre><span class="kw">SELECT</span> DISTINCT salary <span class="kw">FROM</span> Employee <span class="kw">ORDER BY</span> salary <span class="kw">DESC</span> <span class="kw">LIMIT</span> <span class="num">1</span> <span class="kw">OFFSET</span> N-<span class="num">1</span>;</pre>
+      </div>
+      <p><strong style="color:var(--accent2)">S13: What is a VIEW in SQL?</strong></p>
+      <p class="example-box">A VIEW is a virtual table defined by a SQL query. It doesn't store data — it's a saved query that can be treated like a table. Useful for security (expose only needed columns) and simplifying complex queries.</p>
+      <p><strong style="color:var(--accent2)">S14: INNER JOIN on two tables</strong></p>
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">SQL</span></div>
+      <pre><span class="kw">SELECT</span> o.order_id, c.name
+<span class="kw">FROM</span> Orders o
+<span class="kw">INNER JOIN</span> Customers c <span class="kw">ON</span> o.customer_id = c.id;</pre>
+      </div>
+      <p><strong style="color:var(--accent2)">S15: Find all employees who joined in 2024</strong></p>
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">SQL</span></div>
+      <pre><span class="kw">SELECT</span> * <span class="kw">FROM</span> Employee <span class="kw">WHERE</span> YEAR(join_date) = <span class="num">2024</span>;</pre>
+      </div>
+      <p><strong style="color:var(--accent2)">S16: DIFFERENCE between RANK, DENSE_RANK, and ROW_NUMBER</strong></p>
+      <div class="tbl-wrap"><table>
+        <tr><th>Function</th><th>Ties?</th><th>Gaps?</th></tr>
+        <tr><td>ROW_NUMBER()</td><td>Always unique</td><td>—</td></tr>
+        <tr><td>RANK()</td><td>Same rank for ties</td><td>Gap after ties</td></tr>
+        <tr><td>DENSE_RANK()</td><td>Same rank for ties</td><td>No gaps</td></tr>
+      </table></div>
+      <p><strong style="color:var(--accent2)">S17: What is a Stored Procedure?</strong></p>
+      <p class="example-box">A stored procedure is a precompiled group of SQL statements stored in the database that can be executed by calling its name. Like a function but at the DB level — reusable, faster, secure.</p>
+      <p><strong style="color:var(--accent2)">S18: What is a Trigger in SQL?</strong></p>
+      <p class="example-box">A trigger automatically executes a specified action (INSERT/UPDATE/DELETE) when a database event occurs on a table. Example: auto-log every salary change into an audit table.</p>
+      <p><strong style="color:var(--accent2)">S19: COALESCE and ISNULL functions</strong></p>
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">SQL</span></div>
+      <pre><span class="cm">-- Returns first non-null value</span>
+<span class="kw">SELECT</span> COALESCE(phone, email, <span class="str">'N/A'</span>) <span class="kw">AS</span> contact <span class="kw">FROM</span> Users;</pre>
+      </div>
+      <p><strong style="color:var(--accent2)">S20: CASE statement (conditional logic in SQL)</strong></p>
+      <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">SQL</span></div>
+      <pre><span class="kw">SELECT</span> name, salary,
+    <span class="kw">CASE</span>
+        <span class="kw">WHEN</span> salary > <span class="num">80000</span> <span class="kw">THEN</span> <span class="str">'High'</span>
+        <span class="kw">WHEN</span> salary > <span class="num">50000</span> <span class="kw">THEN</span> <span class="str">'Mid'</span>
+        <span class="kw">ELSE</span> <span class="str">'Low'</span>
+    <span class="kw">END</span> <span class="kw">AS</span> salary_band
+<span class="kw">FROM</span> Employee;</pre>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /sql section -->
+
+
+<!-- ══════════════════════════════════════════════
+  SECTION 5 – GENERATIVE AI
+══════════════════════════════════════════════ -->
+<div id="genai" class="section-wrap container">
+  <div class="section-header">
+    <div class="section-num">05</div>
+    <div class="section-info">
+      <h2>Generative AI Questions</h2>
+      <p>25 questions on LLMs, Prompting, RAG, Embeddings, Vector DBs, and Chatbots</p>
+    </div>
+  </div>
+
+  <div class="q-grid">
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">G01</span><span class="q-title">What is a Foundation Model?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">A foundation model is a large AI model trained on broad datasets that can be adapted for a wide variety of tasks (text, images, audio, code) through fine-tuning or prompting.</div></div>
+        <div class="q-section"><div class="q-label">Examples</div><p class="example-box">GPT-4 (text), DALL·E (images), Whisper (audio), Codex (code), Gemini (multimodal).</p></div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>Foundation model vs traditional ML model?</span><span>Why are they called "foundation"?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">G02</span><span class="q-title">What is Zero-shot, One-shot, and Few-shot prompting?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">Zero-shot: ask the model directly with no examples. One-shot: give one example. Few-shot: give 2–5 examples before the actual question — guides the model's format and style.</div></div>
+        <div class="q-section"><div class="q-label">Example</div><p class="example-box">Few-shot: "Translate English to French. 'Hello' → 'Bonjour'. 'Cat' → 'Chat'. 'Dog' → ?"</p></div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>When does few-shot fail?</span><span>What is Chain-of-Thought prompting?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">G03</span><span class="q-title">What is Chain-of-Thought (CoT) prompting?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">CoT prompting asks the model to reason step by step before giving a final answer. Adding "Let's think step by step" dramatically improves performance on math, logic, and multi-step reasoning.</div></div>
+        <div class="q-section"><div class="q-label">Example</div><p class="example-box">Without CoT: "Is 17 prime? Yes." With CoT: "Is 17 prime? 17 ÷ 2 = not integer. 17 ÷ 3 = not integer. √17 ≈ 4.1, checked all divisors. Yes, 17 is prime."</p></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">G04</span><span class="q-title">Explain the RAG (Retrieval-Augmented Generation) pipeline in detail.</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Full Pipeline</div>
+          <div class="definition">
+            1. <strong>Ingestion:</strong> Load documents (PDF, web, DB) → chunk them → embed each chunk → store in vector DB.<br>
+            2. <strong>Query time:</strong> Embed user query → semantic search in vector DB → retrieve top-k chunks.<br>
+            3. <strong>Generation:</strong> Inject retrieved chunks + user query into LLM prompt → LLM generates grounded answer.
+          </div>
+        </div>
+        <div class="q-section"><div class="q-label">Industry Example</div><p class="example-box">Notion AI or Confluence AI lets employees ask questions about internal documents — RAG retrieves relevant pages before the LLM answers.</p></div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>Chunking strategies?</span><span>How to evaluate RAG quality?</span><span>RAGAS framework?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">G05</span><span class="q-title">What is Semantic Search vs Keyword Search?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">Keyword search matches exact words (like grep). Semantic search uses embeddings to find results with similar meaning — even if different words are used.</div></div>
+        <div class="q-section"><div class="q-label">Example</div><p class="example-box">Query "sore throat medicine" — keyword search misses "pharyngitis treatment". Semantic search finds it because the embedding space captures medical synonyms.</p></div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>What is BM25?</span><span>Hybrid search (BM25 + semantic)?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">G06</span><span class="q-title">What are the different types of LLM APIs and how do you call them?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Major APIs</div><p class="example-box">OpenAI API (GPT models), Anthropic API (Claude), Google Gemini API, Mistral API, Hugging Face Inference API, Cohere API.</p></div>
+        <div class="q-section"><div class="q-label">Python Example (OpenAI)</div>
+          <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+          <pre><span class="kw">from</span> openai <span class="kw">import</span> OpenAI
+client = OpenAI()
+resp = client.chat.completions.create(
+    model=<span class="str">"gpt-4o"</span>,
+    messages=[
+        {<span class="str">"role"</span>:<span class="str">"system"</span>,<span class="str">"content"</span>:<span class="str">"You are a helpful assistant"</span>},
+        {<span class="str">"role"</span>:<span class="str">"user"</span>,<span class="str">"content"</span>:<span class="str">"Explain RAG in 2 sentences"</span>}
+    ]
+)
+<span class="fn">print</span>(resp.choices[<span class="num">0</span>].message.content)</pre></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">G07</span><span class="q-title">What is FAISS and how does it work?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">FAISS (Facebook AI Similarity Search) is an open-source library for efficient similarity search and clustering of dense vectors — extremely fast even with millions of vectors.</div></div>
+        <div class="q-section"><div class="q-label">Code Example</div>
+          <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+          <pre><span class="kw">import</span> faiss, numpy <span class="kw">as</span> np
+
+vectors = np.random.rand(<span class="num">1000</span>, <span class="num">512</span>).astype(<span class="str">'float32'</span>)
+index = faiss.IndexFlatL2(<span class="num">512</span>)
+index.add(vectors)
+query = np.random.rand(<span class="num">1</span>, <span class="num">512</span>).astype(<span class="str">'float32'</span>)
+D, I = index.search(query, k=<span class="num">5</span>)  <span class="cm"># top-5 nearest</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">G08</span><span class="q-title">What is the difference between open-source and closed-source LLMs?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="tbl-wrap"><table>
+          <tr><th>Aspect</th><th>Open-source</th><th>Closed-source</th></tr>
+          <tr><td>Examples</td><td>Llama 3, Mistral, Falcon</td><td>GPT-4, Claude 3, Gemini</td></tr>
+          <tr><td>Cost</td><td>Free (run locally)</td><td>Pay per token</td></tr>
+          <tr><td>Privacy</td><td>Data stays on your server</td><td>Data sent to provider</td></tr>
+          <tr><td>Quality</td><td>Good but generally lower</td><td>State-of-the-art</td></tr>
+        </table></div></div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>When would you prefer Llama over GPT-4?</span><span>What is Ollama for local LLMs?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">G09</span><span class="q-title">How does a RAG chatbot work end-to-end?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Architecture</div>
+          <div class="definition">
+            <strong>Offline (Indexing):</strong> Document → Split into chunks → Embed with sentence-transformers → Store in ChromaDB.<br><br>
+            <strong>Online (Querying):</strong> User question → Embed → Retrieve top 3 chunks → Inject into prompt → LLM generates answer → Return to user.
+          </div>
+        </div>
+        <div class="q-section"><div class="q-label">LangChain RAG Example</div>
+          <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+          <pre><span class="kw">from</span> langchain_community.vectorstores <span class="kw">import</span> Chroma
+<span class="kw">from</span> langchain_openai <span class="kw">import</span> OpenAIEmbeddings, ChatOpenAI
+<span class="kw">from</span> langchain.chains <span class="kw">import</span> RetrievalQA
+
+db = Chroma(<span class="str">"my_index"</span>, OpenAIEmbeddings())
+qa = RetrievalQA.from_chain_type(
+    llm=ChatOpenAI(), retriever=db.as_retriever()
+)
+answer = qa.invoke({<span class="str">"query"</span>: <span class="str">"What is our refund policy?"</span>})</pre></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">G10</span><span class="q-title">What are system prompts in LLMs and why are they important?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">A system prompt is a set of instructions given to an LLM at the start of a conversation to define its role, behavior, tone, and constraints — invisible to the end user.</div></div>
+        <div class="q-section"><div class="q-label">Example</div><p class="example-box">System: "You are a helpful customer support agent for Rudhra Info Solution. Answer only questions about our AI internship program. Be professional and concise."</p></div>
+      </div>
+    </div>
+
+    <!-- G11-G25 compact -->
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">G11</span><span class="q-title">What is Sentence-Transformers library?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">Sentence-Transformers is a Python library (by Hugging Face) for generating high-quality sentence embeddings using pre-trained transformer models like all-MiniLM-L6-v2.</div></div>
+        <div class="q-section"><div class="q-label">Code</div>
+          <div class="code-wrap"><div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div><span class="code-lang">Python</span></div>
+          <pre><span class="kw">from</span> sentence_transformers <span class="kw">import</span> SentenceTransformer
+model = SentenceTransformer(<span class="str">'all-MiniLM-L6-v2'</span>)
+emb = model.encode([<span class="str">"Hello AI world"</span>])
+<span class="cm"># emb.shape: (1, 384)</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">G12</span><span class="q-title">What are the ethical concerns in Generative AI?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Key Issues</div>
+          <div class="definition">
+            1. <strong>Hallucinations</strong> — false information presented as fact<br>
+            2. <strong>Bias</strong> — perpetuating societal biases from training data<br>
+            3. <strong>Copyright</strong> — trained on copyrighted content<br>
+            4. <strong>Misinformation</strong> — deepfakes, fake news generation<br>
+            5. <strong>Privacy</strong> — training on personal data without consent<br>
+            6. <strong>Job displacement</strong> — automation of knowledge work
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">G13</span><span class="q-title">What is Retrieval vs Generation trade-off in LLMs?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">Pure generation (LLM only) is creative but may hallucinate. Pure retrieval (search) is accurate but not natural. RAG combines both — retrieve facts, generate natural language.</div></div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>When is RAG better than fine-tuning?</span><span>RAG limitations?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">G14</span><span class="q-title">What is the difference between similarity metrics: Cosine, Euclidean, Dot Product?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="tbl-wrap"><table>
+          <tr><th>Metric</th><th>Measures</th><th>Range</th><th>Best For</th></tr>
+          <tr><td>Cosine</td><td>Angle between vectors</td><td>-1 to 1</td><td>Text similarity (direction matters)</td></tr>
+          <tr><td>Euclidean</td><td>Straight-line distance</td><td>0 to ∞</td><td>Spatial distance</td></tr>
+          <tr><td>Dot Product</td><td>Magnitude + angle</td><td>-∞ to ∞</td><td>Fast, normalized embeddings</td></tr>
+        </table></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">G15</span><span class="q-title">What is a multimodal AI model?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Definition</div><div class="definition">A multimodal model can process and generate multiple types of data — text, images, audio, video — in a single unified model.</div></div>
+        <div class="q-section"><div class="q-label">Examples</div><p class="example-box">GPT-4V (text + images), Gemini 1.5 (text + image + video + audio), DALL·E 3 (text → image), Whisper (audio → text).</p></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">G16–G25</span><span class="q-title">Additional GenAI Questions (Quick Reference)</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">G16: What is LlamaIndex?</div><p>LlamaIndex (formerly GPT Index) is a data framework for building RAG pipelines — it handles ingestion, indexing, querying, and connecting LLMs to your data.</p></div>
+        <div class="q-section"><div class="q-label">G17: What is a chatbot's memory?</div><p>Memory allows a chatbot to remember past messages in a conversation. LangChain offers ConversationBufferMemory, ConversationSummaryMemory, etc.</p></div>
+        <div class="q-section"><div class="q-label">G18: What is Streamlit and how is it used in AI apps?</div><p>Streamlit is a Python library to build web UIs for ML/AI demos in minutes with no frontend knowledge — used to deploy chatbots and dashboards quickly.</p></div>
+        <div class="q-section"><div class="q-label">G19: What is Ollama?</div><p>Ollama lets you run open-source LLMs (Llama 3, Mistral, Gemma) locally on your laptop with a simple CLI and REST API — no cloud, no cost, private.</p></div>
+        <div class="q-section"><div class="q-label">G20: What is Hugging Face?</div><p>Hugging Face is the largest platform for open-source AI models, datasets, and tools — home to 300k+ models including BERT, Stable Diffusion, Whisper.</p></div>
+        <div class="q-section"><div class="q-label">G21: What is prompt injection attack?</div><p>A security attack where malicious input in user messages tries to override the system prompt to make the AI behave unexpectedly or reveal confidential information.</p></div>
+        <div class="q-section"><div class="q-label">G22: What is the difference between OpenAI Chat Completions and Assistants API?</div><p>Chat Completions is a stateless one-turn endpoint. Assistants API is stateful — maintains threads, memory, file uploads, and code interpreter tools.</p></div>
+        <div class="q-section"><div class="q-label">G23: What is Chunking strategy in RAG?</div><p>Chunking splits documents into pieces before embedding. Fixed-size chunking (500 tokens), sentence-level, semantic chunking, and recursive text splitter are common strategies.</p></div>
+        <div class="q-section"><div class="q-label">G24: What are AI Agents and tool use?</div><p>Tool use / function calling lets LLMs call external functions (calculator, search, database, APIs) when needed — making them agents that interact with the real world.</p></div>
+        <div class="q-section"><div class="q-label">G25: What is Responsible AI?</div><p>Responsible AI is the practice of developing AI systems that are fair, transparent, explainable, safe, and privacy-preserving — following ethical guidelines to prevent harm.</p></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════
+  SECTION 6 – PROJECT DISCUSSION
+══════════════════════════════════════════════ -->
+<div id="projects" class="section-wrap container">
+  <div class="section-header">
+    <div class="section-num">06</div>
+    <div class="section-info">
+      <h2>Project Discussion Questions</h2>
+      <p>20 questions with sample fresher answers about ML/AI projects</p>
+    </div>
+  </div>
+
+  <div class="q-grid">
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">P01</span><span class="q-title">Explain your ML project to me.</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Sample Answer (Sentiment Analysis Project)</div>
+          <div class="definition">I built a sentiment analysis model using Python and scikit-learn. The goal was to classify customer reviews as positive or negative. I collected 10,000 reviews from Kaggle, preprocessed the text (lowercasing, stopword removal, TF-IDF vectorization), then trained a Logistic Regression classifier achieving 87% accuracy.</div>
+        </div>
+        <div class="q-section"><div class="q-label">Key Structure for Your Answer</div><p class="example-box">Problem → Dataset → Preprocessing → Model chosen → Result → What I learned</p></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">P02</span><span class="q-title">How did you preprocess your data?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Sample Answer</div>
+          <div class="definition">I performed multiple preprocessing steps: (1) Handled missing values using mean imputation for numerical features and mode for categorical ones. (2) Removed outliers using IQR method. (3) Encoded categorical variables with one-hot encoding. (4) Scaled numerical features with StandardScaler. (5) Split data 80/20 train-test.</div>
+        </div>
+        <div class="q-section"><div class="q-label">Follow-up Questions</div><div class="followup"><span>Why did you choose mean imputation over median?</span><span>How did you detect outliers?</span></div></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">P03</span><span class="q-title">Why did you choose this particular model?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Sample Answer</div>
+          <div class="definition">I tried three models — Logistic Regression, Random Forest, and SVM. I chose Random Forest because it gave the best F1-score (0.89) on cross-validation, handled the class imbalance well with balanced weights, and provided feature importances that helped me understand which features mattered most.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">P04</span><span class="q-title">How did you evaluate your model?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Sample Answer</div>
+          <div class="definition">Since my dataset had class imbalance, I used F1-score and ROC-AUC instead of accuracy. I also computed the confusion matrix to analyze false positives and false negatives separately, and used 5-fold cross-validation to ensure the score was robust across different data splits.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">P05</span><span class="q-title">What challenges did you face in your project?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Sample Answer</div>
+          <div class="definition">The main challenge was class imbalance — 90% of samples were "not fraud". I addressed this with SMOTE (Synthetic Minority Over-sampling Technique) to generate synthetic minority samples. This improved recall from 0.42 to 0.78.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">P06</span><span class="q-title">What would you improve if you had more time?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Sample Answer</div>
+          <div class="definition">I would (1) collect more domain-specific data to reduce bias, (2) try XGBoost and neural networks, (3) implement a proper MLflow experiment tracking system, (4) deploy it as a Flask API with Docker containerization, and (5) add monitoring to detect model drift in production.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">P07</span><span class="q-title">Have you worked on any NLP or GenAI project?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Sample Answer</div>
+          <div class="definition">Yes, I built a simple PDF Q&A chatbot using LangChain and the OpenAI API. I loaded a PDF, split it into chunks using RecursiveCharacterTextSplitter, embedded them with OpenAI embeddings, stored in ChromaDB, and used RetrievalQA to answer questions. I built the UI with Streamlit.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">P08</span><span class="q-title">What datasets have you used?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Sample Answer</div>
+          <div class="definition">I worked with: (1) Kaggle Titanic dataset for binary classification practice. (2) UCI Heart Disease dataset for health prediction. (3) IMDB movie reviews from Hugging Face for sentiment analysis. (4) Custom scraped data using BeautifulSoup for a college price comparison project.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">P09</span><span class="q-title">Did you deploy your project? If yes, how?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Sample Answer</div>
+          <div class="definition">Yes — I deployed it using Flask as a REST API, Dockerized the container, and hosted it on Render (free tier). For the frontend, I used Streamlit hosted on Streamlit Cloud. The model is serialized with joblib and loaded at startup.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">P10</span><span class="q-title">What Python libraries have you used in your projects?</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">Sample Answer</div>
+          <div class="definition">Data manipulation: pandas, numpy. Visualization: matplotlib, seaborn, plotly. ML: scikit-learn, xgboost. Deep Learning: tensorflow, keras. NLP: nltk, spacy, transformers. GenAI: langchain, openai, chromadb, sentence-transformers. Deployment: flask, fastapi, streamlit.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-card-header"><span class="q-num">P11–P20</span><span class="q-title">More Project Questions with Sample Answers</span></div>
+      <div class="q-body">
+        <div class="q-section"><div class="q-label">P11: How did you handle overfitting in your project?</div><p>Used regularization (L2), reduced model complexity, added dropout in neural networks, and used early stopping based on validation loss.</p></div>
+        <div class="q-section"><div class="q-label">P12: What is your GitHub profile and what projects do you have?</div><p>Confidently mention 2–3 projects: "I have a sentiment analysis project, a RAG chatbot, and a house price prediction project — all documented with README files and deployed links."</p></div>
+        <div class="q-section"><div class="q-label">P13: Describe a data visualization you created.</div><p>I created a heatmap of feature correlations using seaborn to identify multicollinearity, a ROC curve comparison of multiple models, and a feature importance bar chart using Random Forest's feature_importances_ attribute.</p></div>
+        <div class="q-section"><div class="q-label">P14: Have you done any web scraping for data collection?</div><p>Yes, I used BeautifulSoup and requests to scrape product prices from e-commerce sites, stored them in a pandas DataFrame, and cleaned the data before feeding it to an ML model.</p></div>
+        <div class="q-section"><div class="q-label">P15: What is the most complex ML concept you've implemented?</div><p>I implemented a mini-neural network from scratch using NumPy — forward propagation, sigmoid activation, backpropagation with chain rule, and gradient descent. It helped me deeply understand how frameworks like TensorFlow work internally.</p></div>
+        <div class="q-section"><div class="q-label">P16: How did you find your project idea?</div><p>I identified a real-world problem — students struggling to find relevant resources for exam prep. I built a PDF chatbot where students upload their study material and ask questions directly — combining LLMs and RAG.</p></div>
+        <div class="q-section"><div class="q-label">P17: What is your understanding of ML model monitoring?</div><p>After deployment, models degrade over time due to data drift (input distribution changes) or concept drift (relationship changes). Monitoring tracks accuracy, prediction distribution, and triggers retraining when metrics drop below threshold.</p></div>
+        <div class="q-section"><div class="q-label">P18: What is EDA (Exploratory Data Analysis)?</div><p>EDA is the initial investigation of data using statistics and visualizations to understand distributions, detect outliers, find correlations, and identify missing values before modeling.</p></div>
+        <div class="q-section"><div class="q-label">P19: What tools did you use for version control?</div><p>Git and GitHub for code versioning. I committed regularly with meaningful messages, used branches for features, and practiced pull request workflows. Also used DVC (Data Version Control) for tracking dataset versions.</p></div>
+        <div class="q-section"><div class="q-label">P20: How would you explain your project to a non-technical person?</div><p>"I taught a computer to read customer reviews and automatically tell if the customer was happy or unhappy — like having an assistant who reads 10,000 reviews instantly and tells you which products need improvement."</p></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════
+  SECTION 7 – HR ROUND
+══════════════════════════════════════════════ -->
+<div id="hr" class="section-wrap container">
+  <div class="section-header">
+    <div class="section-num">07</div>
+    <div class="section-info">
+      <h2>HR Round</h2>
+      <p>25 HR questions with best answers crafted for freshers</p>
+    </div>
+  </div>
+
+  <div class="hr-card">
+    <div class="hr-q"><span class="hr-num">HR01</span> Tell me about yourself.</div>
+    <div class="hr-a">
+      <div class="hr-tip">⭐ Most Important</div>
+      <p>I'm [Name], a final-year BE Computer Science student from [College]. I have a strong passion for Artificial Intelligence and Machine Learning. During my studies, I've built hands-on projects including a sentiment analysis model and a RAG-based PDF chatbot using LangChain and OpenAI. I'm proficient in Python, SQL, and scikit-learn. I'm excited about this AI Intern opportunity at Rudhra Info Solution because it aligns perfectly with my skills and my career goal of becoming an AI engineer.</p>
+    </div>
+  </div>
+
+  <div class="hr-card">
+    <div class="hr-q"><span class="hr-num">HR02</span> Why do you want to work in the AI field?</div>
+    <div class="hr-a">
+      <p>AI is transforming every industry — healthcare, finance, education, manufacturing. I'm fascinated by how ML models can learn patterns from data and make intelligent decisions. During my final year project, I experienced how a simple NLP model could extract meaningful insights from thousands of reviews instantly — that experience solidified my passion. I want to be at the frontier of this transformation.</p>
+    </div>
+  </div>
+
+  <div class="hr-card">
+    <div class="hr-q"><span class="hr-num">HR03</span> Why do you want to join Rudhra Info Solution?</div>
+    <div class="hr-a">
+      <p>Rudhra Info Solution focuses on AI development which perfectly matches my skill set in Python, ML, and Generative AI. I want to work in an environment where I can contribute to real AI products while learning from experienced professionals. The internship duration of 3–6 months gives me the opportunity to work on meaningful projects and grow rapidly. I believe the hands-on exposure here will be invaluable for my career.</p>
+    </div>
+  </div>
+
+  <div class="hr-card">
+    <div class="hr-q"><span class="hr-num">HR04</span> What are your strengths?</div>
+    <div class="hr-a">
+      <p>My key strengths are: (1) <strong>Problem-solving</strong> — I enjoy breaking down complex problems systematically, as I demonstrated when I debugged and optimized my ML pipeline. (2) <strong>Quick learning</strong> — I taught myself LangChain and deployed a chatbot within two weeks. (3) <strong>Consistency</strong> — I practice coding every day on LeetCode and build small projects to reinforce my learning.</p>
+    </div>
+  </div>
+
+  <div class="hr-card">
+    <div class="hr-q"><span class="hr-num">HR05</span> What are your weaknesses?</div>
+    <div class="hr-a">
+      <div class="hr-tip">💡 Be honest but show self-awareness</div>
+      <p>I sometimes spend too much time perfecting details before moving forward — I'm a bit of a perfectionist. I've been working on this by setting time-boxed goals: allocate 30 minutes to a sub-task, then move forward regardless. This has improved my productivity significantly while still maintaining quality.</p>
+    </div>
+  </div>
+
+  <div class="hr-card">
+    <div class="hr-q"><span class="hr-num">HR06</span> Where do you see yourself in 3 years?</div>
+    <div class="hr-a">
+      <p>In 3 years, I see myself as a full-time AI/ML Engineer — having mastered deep learning, LLM fine-tuning, and MLOps. I want to lead end-to-end AI projects from data collection to production deployment. I'd love to grow within a company like this, contributing to AI products that have real business impact.</p>
+    </div>
+  </div>
+
+  <div class="hr-card">
+    <div class="hr-q"><span class="hr-num">HR07</span> How do you handle pressure and tight deadlines?</div>
+    <div class="hr-a">
+      <p>I prioritize tasks using the Eisenhower matrix — urgent and important first. When facing a deadline, I break the work into smaller milestones, estimate time honestly, and communicate early if any blocker arises. During my college project submission, I managed debugging, documentation, and presentation simultaneously by planning the week in advance.</p>
+    </div>
+  </div>
+
+  <div class="hr-card">
+    <div class="hr-q"><span class="hr-num">HR08</span> Are you comfortable working in a team?</div>
+    <div class="hr-a">
+      <p>Absolutely. In my final year project, I worked with a team of 3. I handled the ML model development while my teammates worked on the frontend and data collection. We used Git for collaboration and had daily standups via WhatsApp. Good communication and clearly defined roles made the project a success.</p>
+    </div>
+  </div>
+
+  <div class="hr-card">
+    <div class="hr-q"><span class="hr-num">HR09</span> What do you know about our company?</div>
+    <div class="hr-a">
+      <div class="hr-tip">🔍 Research before interview</div>
+      <p>Rudhra Info Solution is a Bangalore-based technology company offering AI and ML development services. You provide AI intern opportunities to freshers from CS/IT/AI backgrounds, focusing on practical development using Python, ML, and GenAI. I'm particularly excited about the development-focused intern role because it aligns with my hands-on project experience.</p>
+    </div>
+  </div>
+
+  <div class="hr-card">
+    <div class="hr-q"><span class="hr-num">HR10</span> What salary or stipend are you expecting?</div>
+    <div class="hr-a">
+      <p>Since this is an internship focused on learning and growth, I understand the stipend range is ₹10,000–15,000 per month and I'm comfortable with this. My primary goal is to gain real-world AI development experience, build my portfolio, and prove my value — I'm confident that performance will be recognized appropriately.</p>
+    </div>
+  </div>
+
+  <div class="hr-card">
+    <div class="hr-q"><span class="hr-num">HR11–HR25</span> More HR Questions & Quick Answers</div>
+    <div class="hr-a">
+      <p><strong style="color:var(--accent4)">HR11: Do you have any questions for us?</strong><br>Always ask! E.g., "What does a typical day look like for an AI intern here?" or "What technologies and tools will I work with during this internship?"</p>
+      <p><strong style="color:var(--accent4)">HR12: What motivates you to work hard every day?</strong><br>The feeling of solving a hard problem and seeing a model make accurate predictions keeps me going. I'm intrinsically motivated by progress and learning something new each day.</p>
+      <p><strong style="color:var(--accent4)">HR13: How do you keep yourself updated with AI trends?</strong><br>I follow Arxiv papers, watch Andrew Ng's courses on Coursera, subscribe to the Hugging Face blog, follow AI researchers on Twitter/X, and build weekly mini-projects to try new libraries.</p>
+      <p><strong style="color:var(--accent4)">HR14: Tell me about a time you failed and what you learned.</strong><br>In my first project, my model had 95% accuracy on training data but only 60% on test data — textbook overfitting. I learned the importance of validation sets, regularization, and never trusting training accuracy alone.</p>
+      <p><strong style="color:var(--accent4)">HR15: How quickly can you learn a new tool or technology?</strong><br>I can pick up a new Python library and build a small working prototype within 1–2 days. I learned LangChain in 3 days by reading docs and building a chatbot step by step.</p>
+      <p><strong style="color:var(--accent4)">HR16: Are you willing to relocate or commute to Bangalore?</strong><br>Yes, I'm based in Bangalore (or willing to relocate) and I'm excited about the offline internship format — direct mentorship and collaboration are very valuable at this stage of my career.</p>
+      <p><strong style="color:var(--accent4)">HR17: Describe yourself in three words.</strong><br>Curious, persistent, and collaborative.</p>
+      <p><strong style="color:var(--accent4)">HR18: How do you handle constructive criticism?</strong><br>I welcome feedback — it's the fastest way to improve. I listen actively, ask clarifying questions, and implement the suggestion before defending my original approach. Growth requires humility.</p>
+      <p><strong style="color:var(--accent4)">HR19: What is your greatest achievement so far?</strong><br>Building a fully functional RAG chatbot deployed on Streamlit Cloud that my college peers actually used to study for exams — getting real users and positive feedback was incredibly rewarding.</p>
+      <p><strong style="color:var(--accent4)">HR20: Why should we hire you over other candidates?</strong><br>I combine theoretical knowledge with practical projects — I've already built and deployed AI applications. I learn fast, work independently, ask good questions, and I'm genuinely passionate about AI development. I won't just learn — I'll contribute from day one.</p>
+      <p><strong style="color:var(--accent4)">HR21: How would you rate your Python skills out of 10?</strong><br>I'd rate myself a 7/10. I'm comfortable with core Python, OOP, data structures, NumPy, pandas, and ML libraries. I'm still improving on advanced concepts like async programming and system design. I'm honest about my level and committed to improving.</p>
+      <p><strong style="color:var(--accent4)">HR22: What is your notice period or joining availability?</strong><br>I can join immediately (or within [X] days after my semester exams, which are on [date]).</p>
+      <p><strong style="color:var(--accent4)">HR23: Do you prefer working independently or in teams?</strong><br>Both. I'm productive working independently on focused tasks like model development and coding. I also thrive in collaborative discussions for brainstorming, code reviews, and problem-solving.</p>
+      <p><strong style="color:var(--accent4)">HR24: What are your hobbies?</strong><br>I enjoy competitive programming on LeetCode, contributing to open-source ML projects on GitHub, reading AI research papers (Arxiv), and building personal projects during weekends.</p>
+      <p><strong style="color:var(--accent4)">HR25: Is there anything else you'd like us to know?</strong><br>I'd like to emphasize my commitment — I take every project seriously, I document my work thoroughly, and I'm someone who doesn't stop until the problem is solved. I'm excited about this opportunity and I'm ready to contribute meaningfully to your team from day one.</p>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ══════════════════════════════════════════════
+  SECTION 8 – MOCK INTERVIEW
+══════════════════════════════════════════════ -->
+<div id="mock" class="section-wrap container">
+  <div class="section-header">
+    <div class="section-num">08</div>
+    <div class="section-info">
+      <h2>Mock Interview Simulation</h2>
+      <p>Complete interview transcript — study the candidate's answers</p>
+    </div>
+  </div>
+
+  <div class="mock-thread">
+
+    <div class="mock-msg mock-iv">
+      <div class="mock-avatar av-iv">IV</div>
+      <div class="mock-content">
+        <div class="mock-label">Interviewer</div>
+        <div class="mock-text">Good morning! Please introduce yourself briefly.</div>
+      </div>
+    </div>
+    <div class="mock-msg mock-ca">
+      <div class="mock-avatar av-ca">ME</div>
+      <div class="mock-content">
+        <div class="mock-label">Candidate</div>
+        <div class="mock-text">Good morning! I'm Priya Sharma, a final-year BE CSE student. I'm passionate about AI and ML — I've built a sentiment analysis model using scikit-learn and a RAG chatbot using LangChain. I'm proficient in Python and SQL, and I'm excited to apply these skills in a real-world AI development role here at Rudhra Info Solution.</div>
+      </div>
+    </div>
+
+    <div class="mock-msg mock-iv">
+      <div class="mock-avatar av-iv">IV</div>
+      <div class="mock-content">
+        <div class="mock-label">Interviewer</div>
+        <div class="mock-text">Good. Can you explain the difference between a list and a tuple in Python?</div>
+      </div>
+    </div>
+    <div class="mock-msg mock-ca">
+      <div class="mock-avatar av-ca">ME</div>
+      <div class="mock-content">
+        <div class="mock-label">Candidate</div>
+        <div class="mock-text">Sure. Both are ordered collections that can store any data type. The key difference is mutability — a list is mutable so you can add, remove, or change elements after creation. A tuple is immutable — once created, it cannot be changed. Tuples are faster and use less memory. I'd use a tuple for fixed configuration data like database credentials, and a list for dynamic data like a collection of user inputs.</div>
+      </div>
+    </div>
+
+    <div class="mock-msg mock-iv">
+      <div class="mock-avatar av-iv">IV</div>
+      <div class="mock-content">
+        <div class="mock-label">Interviewer</div>
+        <div class="mock-text">Excellent. Write a Python function to find the second largest number in a list.</div>
+      </div>
+    </div>
+    <div class="mock-msg mock-ca">
+      <div class="mock-avatar av-ca">ME</div>
+      <div class="mock-content">
+        <div class="mock-label">Candidate</div>
+        <div class="mock-text">Certainly. I'll first remove duplicates using a set, sort in descending order, and return the element at index 1:<br><br>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:12px; background:#0a0c10; padding:8px 12px; border-radius:4px; display:block; color:#c9d1d9; margin-top:6px;">def second_largest(nums):<br>&nbsp;&nbsp;&nbsp;&nbsp;unique = sorted(set(nums), reverse=True)<br>&nbsp;&nbsp;&nbsp;&nbsp;return unique[1] if len(unique) >= 2 else None</span>
+          This handles duplicate values correctly and has O(n log n) time complexity due to sorting.
+        </div>
+      </div>
+    </div>
+
+    <div class="mock-msg mock-iv">
+      <div class="mock-avatar av-iv">IV</div>
+      <div class="mock-content">
+        <div class="mock-label">Interviewer</div>
+        <div class="mock-text">What SQL query would you write to find the second highest salary from an Employee table?</div>
+      </div>
+    </div>
+    <div class="mock-msg mock-ca">
+      <div class="mock-avatar av-ca">ME</div>
+      <div class="mock-content">
+        <div class="mock-label">Candidate</div>
+        <div class="mock-text">I know three approaches. The most common is using a subquery: SELECT MAX(salary) FROM Employee WHERE salary less than (SELECT MAX(salary) FROM Employee). A cleaner approach uses DENSE_RANK window function. And for MySQL, LIMIT with OFFSET works: SELECT DISTINCT salary FROM Employee ORDER BY salary DESC LIMIT 1 OFFSET 1. I prefer the DENSE_RANK approach as it generalizes to any Nth salary easily.</div>
+      </div>
+    </div>
+
+    <div class="mock-msg mock-iv">
+      <div class="mock-avatar av-iv">IV</div>
+      <div class="mock-content">
+        <div class="mock-label">Interviewer</div>
+        <div class="mock-text">What is overfitting and how do you prevent it?</div>
+      </div>
+    </div>
+    <div class="mock-msg mock-ca">
+      <div class="mock-avatar av-ca">ME</div>
+      <div class="mock-content">
+        <div class="mock-label">Candidate</div>
+        <div class="mock-text">Overfitting happens when a model memorizes the training data instead of learning generalizable patterns — it performs very well on training data but poorly on new unseen data. I faced this in my project where my Random Forest had 98% training accuracy but only 72% test accuracy. I addressed it by limiting max_depth, using cross-validation, adding more training samples, and tuning min_samples_leaf. In neural networks, dropout and early stopping are effective. The core idea is to reduce model complexity or increase training data.</div>
+      </div>
+    </div>
+
+    <div class="mock-msg mock-iv">
+      <div class="mock-avatar av-iv">IV</div>
+      <div class="mock-content">
+        <div class="mock-label">Interviewer</div>
+        <div class="mock-text">What is RAG and can you describe a project where you used it?</div>
+      </div>
+    </div>
+    <div class="mock-msg mock-ca">
+      <div class="mock-avatar av-ca">ME</div>
+      <div class="mock-content">
+        <div class="mock-label">Candidate</div>
+        <div class="mock-text">RAG stands for Retrieval-Augmented Generation. It solves the limitation of LLMs having outdated or no knowledge of specific documents. In RAG, we first index documents as embeddings in a vector database. At query time, we embed the user's question, retrieve the most relevant document chunks via similarity search, and inject them into the LLM's prompt as context. The LLM then generates an answer grounded in those retrieved facts rather than hallucinating. I built a PDF chatbot where students uploaded their study materials and asked questions — the system retrieved relevant paragraphs and the LLM summarized the answer. It reduced hallucinations significantly.</div>
+      </div>
+    </div>
+
+    <div class="mock-msg mock-iv">
+      <div class="mock-avatar av-iv">IV</div>
+      <div class="mock-content">
+        <div class="mock-label">Interviewer</div>
+        <div class="mock-text">What is the difference between precision and recall? When would you optimize for each?</div>
+      </div>
+    </div>
+    <div class="mock-msg mock-ca">
+      <div class="mock-avatar av-ca">ME</div>
+      <div class="mock-content">
+        <div class="mock-label">Candidate</div>
+        <div class="mock-text">Precision measures: of all cases we predicted as positive, how many were actually positive? Recall measures: of all actual positive cases, how many did we correctly catch? There's a tradeoff. For cancer screening, we'd optimize for high Recall — we'd rather have false alarms (false positives) than miss actual cancer cases. For spam detection, we'd optimize for high Precision — we'd rather let some spam through than accidentally block important emails. The F1-score is the harmonic mean of both when we want to balance the two.</div>
+      </div>
+    </div>
+
+    <div class="mock-msg mock-iv">
+      <div class="mock-avatar av-iv">IV</div>
+      <div class="mock-content">
+        <div class="mock-label">Interviewer</div>
+        <div class="mock-text">Why should we hire you for this AI intern role?</div>
+      </div>
+    </div>
+    <div class="mock-msg mock-ca">
+      <div class="mock-avatar av-ca">ME</div>
+      <div class="mock-content">
+        <div class="mock-label">Candidate</div>
+        <div class="mock-text">I bring a unique combination of strong theoretical foundations and practical hands-on experience. I've already built and deployed AI applications — a sentiment classifier, a RAG chatbot, and an ML pipeline — not just studied the theory. I'm comfortable with Python, scikit-learn, LangChain, and SQL. I'm a fast learner who taught myself LangChain in 3 days from documentation. Most importantly, I'm genuinely passionate about AI and I'll bring enthusiasm, initiative, and consistency to the team. I won't just complete assigned tasks — I'll look for ways to contribute beyond them.</div>
+      </div>
+    </div>
+
+    <div class="mock-msg mock-iv">
+      <div class="mock-avatar av-iv">IV</div>
+      <div class="mock-content">
+        <div class="mock-label">Interviewer</div>
+        <div class="mock-text">Do you have any questions for us?</div>
+      </div>
+    </div>
+    <div class="mock-msg mock-ca">
+      <div class="mock-avatar av-ca">ME</div>
+      <div class="mock-content">
+        <div class="mock-label">Candidate</div>
+        <div class="mock-text">Yes, a few! (1) What kinds of AI projects will the intern team be working on during this period? (2) What does a typical work week look like for interns — will I have a mentor to guide me? (3) Are there opportunities for the internship to convert into a full-time role based on performance? Thank you so much for this opportunity — I'm very excited about the prospect of joining Rudhra Info Solution.</div>
+      </div>
+    </div>
+
+  </div><!-- /mock-thread -->
+</div><!-- /mock section -->
+
+
+<!-- FOOTER -->
+<footer>
+  <p>🎓 Prepared by <strong>AI Interview Research Team</strong> | Rudhra Info Solution — AI Intern Role, Bangalore</p>
+  <p style="margin-top:6px;">150+ Questions · Python · SQL · Machine Learning · Generative AI · Project Discussion · HR Round · Mock Interview</p>
+  <p style="margin-top:12px; font-size:11px; color:#475569;">Best of luck with your interview! Remember: confidence, clarity, and genuine passion for AI will set you apart. 🚀</p>
+</footer>
+
+</body>
+</html>
